@@ -1,0 +1,13 @@
+.viewport{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+html {
+    background-color: black;
+}
+
+body {
+    margin: 0px;
+}
