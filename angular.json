@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "GenericAngularProjectCSR": {
+    "ScreenBounce": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/generic-angular-project-csr",
+            "outputPath": "dist/screen-bounce",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "GenericAngularProjectCSR:build:production"
+              "buildTarget": "ScreenBounce:build:production"
             },
             "development": {
-              "buildTarget": "GenericAngularProjectCSR:build:development"
+              "buildTarget": "ScreenBounce:build:development"
             }
           },
           "defaultConfiguration": "development"
