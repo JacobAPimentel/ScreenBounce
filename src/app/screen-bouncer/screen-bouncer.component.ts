@@ -28,9 +28,10 @@ export interface LogoSvg extends BaseLogo {
   encapsulation: ViewEncapsulation.None
 })
 export class DvdScreensaverComponent implements AfterViewInit {
+  minWinSize: number = Math.min(window.innerHeight,window.innerWidth)
   moveId: number = 0;
   logos: Logo[] = [
-    {type: "svg", size: 500},
+    {type: "svg", size: Math.min(500,this.minWinSize * 0.5)}
   ];
   @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
   
