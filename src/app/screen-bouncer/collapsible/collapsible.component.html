@@ -1,0 +1,15 @@
+<button (click)="onClicked()">
+    @if(!isExpanded)
+    {
+        <img src="assets/Settings.svg" alt="Settings" class="settings" [class.invisible]="!isVisible"/>
+    }
+    @else
+    {
+        <img src="assets/ArrowBack.svg" alt="Collapse" />
+    }
+</button>
+<div class="settingsPane" [class.expanded]="isExpanded">
+    <div class="embeddedPane">
+        <ng-content />
+    </div>
+</div>

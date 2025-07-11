@@ -1,5 +1,9 @@
-.container-fluid {
-    display: inline-block;
-    width: fit-content;
-    height: fit-content;
+html {
+    background-color: black;
+}
+
+body {
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
 }

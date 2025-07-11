@@ -1,19 +1,21 @@
-<!--DIV, as we have encapsulation disabled for page.-->
-<div class="viewport">
-    @for(item of logos; track $index)
-    {
-        <app-dvd-logo>
-            @switch (item.type)
-            {
-                @case("text") 
+<div class="flex">
+    <div #viewport class="viewport">
+        @for(item of logos; track $index)
+        {
+            <app-dvd-logo>
+                @switch (item.type)
                 {
-                    <app-logo-text [text]="item.text" [size]="item.size"/>
-                }
-                @case("svg")
-                {
-                    <app-logo-svg [filePath]="item.filePath" [size]="item.size"/>
-                }
-            } 
-        </app-dvd-logo>
-    }
+                    @case("text") 
+                    {
+                        <app-logo-text [text]="item.text" [size]="item.size"/>
+                    }
+                    @case("svg")
+                    {
+                        <app-logo-svg [filePath]="item.filePath" [size]="item.size"/>
+                    }
+                } 
+            </app-dvd-logo>
+        }
+    </div>
+    <app-collapsible><app-options-pane /></app-collapsible>
 </div>

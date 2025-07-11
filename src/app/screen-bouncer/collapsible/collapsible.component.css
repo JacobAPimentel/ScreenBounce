@@ -1,0 +1,42 @@
+:host{
+    --width: 500px;
+    position: relative; /* relative position so button can use absolute */
+}
+
+.settingsPane{
+    overflow: hidden;
+    height: 100%;
+    background-color: white;
+    width: 0;
+    transition: width 0.25s ease;
+}
+
+.expanded,
+.embeddedPane{
+    width: var(--width);
+}
+
+button{
+    all: unset;
+    cursor: pointer;
+    display: block;
+    height: fit-content;
+    width: fit-content;
+
+    position: absolute;
+    top: 10px;
+    left: -40px; /* negative "pulls" towards the left. */
+}
+
+.settings{
+    transition: opacity 0.25s ease;
+}
+.settings:hover{
+    transition: transform 0.7s ease-in-out;
+    transform: rotate(180deg);
+}
+
+.invisible
+{
+    opacity: 0;
+}

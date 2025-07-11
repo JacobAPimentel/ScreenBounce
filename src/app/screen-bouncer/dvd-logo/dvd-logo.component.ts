@@ -26,8 +26,7 @@ export class DvdLogoComponent implements OnInit {
   @HostBinding("style.top.px") private top = 0;
   @HostBinding("style.color") private color = "white"
   @HostBinding("style.fill")
-
-  host: ElementRef = inject(ElementRef)
+  public host: ElementRef = inject(ElementRef)
 
   ngOnInit(): void {
     this.resetPosition();
@@ -60,8 +59,8 @@ export class DvdLogoComponent implements OnInit {
     this.elapsedYHit += 1
     this.evaluateHits(x,y);
 
-    this.left = this.clamp(this.left + (this.direction.x * dtSpeed),0,window.innerWidth - this.host.nativeElement.offsetWidth);
-    this.top = this.clamp(this.top + (this.direction.y * dtSpeed),0,window.innerHeight - this.host.nativeElement.offsetHeight);
+    this.left = this.clamp(this.left + (this.direction.x * dtSpeed),0,this.host.nativeElement.parentElement.offsetWidth - this.host.nativeElement.offsetWidth);
+    this.top = this.clamp(this.top + (this.direction.y * dtSpeed),0,this.host.nativeElement.parentElement.offsetHeight - this.host.nativeElement.offsetHeight);
   }
 
   /**
@@ -87,8 +86,8 @@ export class DvdLogoComponent implements OnInit {
    */
   private evaluateHits(x: number,y: number): boolean
   {  
-    const xWasHit: boolean = x <= 0 || x + this.host.nativeElement.offsetWidth >= window.innerWidth;
-    const yWasHit: boolean = y <= 0 || y + this.host.nativeElement.offsetHeight >= window.innerHeight;
+    const xWasHit: boolean = x <= 0 || x + this.host.nativeElement.offsetWidth >= this.host.nativeElement.parentElement.offsetWidth;
+    const yWasHit: boolean = y <= 0 || y + this.host.nativeElement.offsetHeight >= this.host.nativeElement.parentElement.offsetHeight;
     if(!xWasHit && !yWasHit) return false;
 
     if(xWasHit)
