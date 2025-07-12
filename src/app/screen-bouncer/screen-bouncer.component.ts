@@ -1,10 +1,10 @@
 import { CommonModule } from "@angular/common";
-import { Component, ViewChildren, AfterViewInit, QueryList, ViewChild, ElementRef } from "@angular/core";
+import { Component, ViewChildren, AfterViewInit, QueryList } from "@angular/core";
 import { DvdLogoComponent } from "./dvd-logo/dvd-logo.component";
 import { LogoTextComponent } from "./logo-text/logo-text.component";
 import { LogoSvgComponent } from "./logo-svg/logo-svg.component";
 import { CollapsibleComponent } from "./collapsible/collapsible.component";
-import { OptionsPaneComponent } from "./options-pane/options-pane.component";
+import { OptionsPaneComponent } from "./settings/options-pane/options-pane.component";
 
 export type Logo = LogoText | LogoSvg
 
@@ -36,9 +36,6 @@ export class DvdScreensaverComponent implements AfterViewInit {
     {type: "svg", size: Math.min(500,this.minWinSize * 0.5)}
   ];
   @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
-
-  //TODO: make a new component that handles all dvd, and use :host() component to determine the size rather than "viewport"
-  @ViewChild("viewport",{static: false}) viewportFrame!: ElementRef;
 
   ngAfterViewInit(){
     this.logoComps.forEach((logo: DvdLogoComponent) => {logo.randomDirection()})
