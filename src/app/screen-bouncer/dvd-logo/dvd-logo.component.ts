@@ -10,8 +10,12 @@ import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.compone
   styleUrl: "./dvd-logo.component.css"
 })
 export class DvdLogoComponent implements OnInit {
-  private speed: number = 500;
-  private bounceVariance: number = 1;
+  //CONSTANTS
+  public static readonly defaultSpeed: number = 500;
+  public static readonly defaultBounceVar: number = 1;
+
+  private speed: number = DvdLogoComponent.defaultSpeed;
+  private bounceVariance: number = DvdLogoComponent.defaultBounceVar;
   private cornerFrameTolerance = 5;
   
   private elapsedXHit = Infinity;

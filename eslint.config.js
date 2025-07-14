@@ -15,7 +15,7 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       "@angular-eslint/directive-selector": [
-        "error",
+        "warn",
         {
           type: "attribute",
           prefix: "app",
@@ -23,15 +23,16 @@ module.exports = tseslint.config(
         },
       ],
       "@angular-eslint/component-selector": [
-        "error",
+        "warn",
         {
           type: "element",
           prefix: "app",
           style: "kebab-case",
         },
       ],
-      "quotes": ["error", "double", { "avoidEscape": true }],
-      "@typescript-eslint/no-inferrable-types": "off"
+      "quotes": ["warn", "double", { "avoidEscape": true }],
+      "@typescript-eslint/no-inferrable-types": "off", // Disables errors due to having types. Ex: let num: number = 10;
+      "@typescript-eslint/no-unused-vars": ["warn"]
     },
   },
   {

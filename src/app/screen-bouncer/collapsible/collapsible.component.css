@@ -1,5 +1,5 @@
 :host{
-    --width: 500px;
+    --width: 300px;
     position: relative; /* relative position so button can use absolute */
 }
 
@@ -16,13 +16,7 @@
     width: var(--width);
 }
 
-button{
-    all: unset;
-    cursor: pointer;
-    display: block;
-    height: fit-content;
-    width: fit-content;
-
+.anchor{
     position: absolute;
     top: 10px;
     left: -40px; /* negative "pulls" towards the left. */

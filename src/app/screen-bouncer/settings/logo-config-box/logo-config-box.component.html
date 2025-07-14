@@ -1,1 +1,23 @@
-Config box.
+<form class="flex-col" [formGroup]="configForm">
+    <div class="nameArea">
+        <input #nameField class="nameField" type="text" formControlName="name" />
+        <button class="img-button item-center" (click)="selectName()">
+            <img src="assets/Pencil.svg" alt="Edit"/>
+        </button>
+    </div>
+    <div class="configArea">
+        <app-input-field type="number" [formGroup]="configForm" formName="speed" label="Speed"/>
+        <app-input-field type="number" [formGroup]="configForm" formName="bounce" label="Bounce Variance"/>
+    </div>
+    <div class="actionBar">
+        <button class="img-button item-center" (click)="selectName()">
+            <img src="assets/Remove.svg" alt="Remove"/>
+        </button>
+        <button class="img-button item-center" (click)="selectName()">
+            <img src="assets/Add.svg" alt="Add"/>
+        </button>
+        <button class="img-button item-center" (click)="selectName()">
+            <img src="assets/Copy.svg" alt="Copy"/>
+        </button>
+    </div>
+</form>

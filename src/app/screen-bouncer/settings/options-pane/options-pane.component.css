@@ -1,10 +1,8 @@
 :host{
-    display: block;
-    width: 100%;
-    height: 100%;
-
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
 
     outline: 5px dashed rgb(69, 69, 69);
     outline-offset: -20px;
@@ -17,13 +15,15 @@
 
 h1{
     all: unset;
-    display: block;
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.scrollContainer{
-    overflow-y: scroll;
+.configBoxHolder{
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+
     flex: 1;
 }

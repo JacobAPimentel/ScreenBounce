@@ -1,0 +1,11 @@
+<!-- Cannot assign formGroup directive to host, therefore we need a div container. -->
+<div [formGroup]="formGroup()" class="main">
+    <label [for]="formName()">{{label()}}</label>
+    @switch(type())
+    {
+        @case("number")
+        {
+            <input [id]="formID()" type="number" [formControlName]="formName()" step="any" appInputNumberOnly/>
+        }
+    }
+</div>
