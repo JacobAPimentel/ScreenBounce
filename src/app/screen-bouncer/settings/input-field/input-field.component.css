@@ -3,6 +3,11 @@
     flex-flow: column;
 }
 
+input{
+  height: 100%;
+  width: 100%;
+}
+
 input.ng-invalid{
   background-color: ivory;
   border: none;

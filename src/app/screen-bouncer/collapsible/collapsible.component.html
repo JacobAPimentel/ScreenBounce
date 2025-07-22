@@ -1,4 +1,4 @@
-<button class="anchor img-button" (click)="onClicked()">
+<button #toggle class="anchor img-button" (click)="onClicked()">
     @if(!isExpanded)
     {
         <img src="assets/Settings.svg" alt="Settings" class="settings" [class.invisible]="!isVisible"/>
@@ -8,8 +8,13 @@
         <img src="assets/ArrowForward.svg" alt="Collapse" />
     }
 </button>
-<div class="settingsPane" [class.expanded]="isExpanded">
-    <div class="embeddedPane">
-        <ng-content />
-    </div>
+
+<div class="resizePane" [class.expanded]="isExpanded">
+    <!-- Only load expandable when necessary -->
+    @defer(on interaction(toggle))
+    {
+        <div class="embeddedPane">
+            <ng-content />
+        </div>
+    }
 </div>

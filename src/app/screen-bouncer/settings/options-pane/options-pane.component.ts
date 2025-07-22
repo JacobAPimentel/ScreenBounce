@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component, inject } from "@angular/core";
 import { LogoConfigBoxComponent } from "../logo-config-box/logo-config-box.component";
+import { LogosCacheService } from "../../../../services/logos-cache.service";
 
 @Component({
   selector: "app-options-pane",
@@ -7,6 +8,7 @@ import { LogoConfigBoxComponent } from "../logo-config-box/logo-config-box.compo
   templateUrl: "./options-pane.component.html",
   styleUrl: "./options-pane.component.css"
 })
-export class OptionsPaneComponent {
-
+export class OptionsPaneComponent
+{
+  cache = inject(LogosCacheService)
 }

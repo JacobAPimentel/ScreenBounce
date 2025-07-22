@@ -1,21 +1,23 @@
 <div class="flex">
     <div #viewport class="viewport">
-        @for(item of logos; track $index)
+        @for(logo of cache.logos; track $index)
         {
-            <app-dvd-logo>
-                @switch (item.type)
+            <app-dvd-logo [speed]="logo.speed" [bounceVariance]="logo.bounceVariance">
+                @switch (logo.type)
                 {
                     @case("text") 
                     {
-                        <app-logo-text [text]="item.text" [size]="item.size"/>
+                        <app-logo-text [text]="logo.text" [size]="logo.fontSize"/>
                     }
-                    @case("svg")
+                    @case("image")
                     {
-                        <app-logo-svg [filePath]="item.filePath" [size]="item.size"/>
+                        <app-logo-svg [filePath]="logo.source" [size]="logo.width"/>
                     }
                 } 
             </app-dvd-logo>
         }
     </div>
-    <app-collapsible><app-options-pane /></app-collapsible>
+    <app-collapsible>
+        <app-options-pane />
+    </app-collapsible>
 </div>

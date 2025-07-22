@@ -6,17 +6,24 @@
         </button>
     </div>
     <div class="configArea">
+        <div class="inputRow">
+            <app-input-field type="number" [formGroup]="configForm" formName="width" label="Width"/>
+            <app-input-field type="number" [formGroup]="configForm" formName="height" label="Height"/>
+        </div>
         <app-input-field type="number" [formGroup]="configForm" formName="speed" label="Speed"/>
-        <app-input-field type="number" [formGroup]="configForm" formName="bounce" label="Bounce Variance"/>
+        <app-input-field type="number" [formGroup]="configForm" formName="bounceVariance" label="Bounce Variance"/>
     </div>
     <div class="actionBar">
-        <button class="img-button item-center" (click)="selectName()">
-            <img src="assets/Remove.svg" alt="Remove"/>
-        </button>
-        <button class="img-button item-center" (click)="selectName()">
+        @if(logoCache.logos.length > 1)
+        {
+            <button class="img-button item-center" (click)="deleteLogo()">
+                <img src="assets/Remove.svg" alt="Remove"/>
+            </button>
+        }
+        <button class="img-button item-center" (click)="createNewLogo()">
             <img src="assets/Add.svg" alt="Add"/>
         </button>
-        <button class="img-button item-center" (click)="selectName()">
+        <button class="img-button item-center" (click)="cloneLogo()">
             <img src="assets/Copy.svg" alt="Copy"/>
         </button>
     </div>

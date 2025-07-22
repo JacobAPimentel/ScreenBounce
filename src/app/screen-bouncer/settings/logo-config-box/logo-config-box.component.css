@@ -10,7 +10,6 @@
 
   display: flex;
 
-  box-sizing: border-box;
   padding: 5px 10px 5px 10px;
 }
 
@@ -39,14 +38,19 @@ img{
     max-width: 100%;
     height: fit-content;
 
-    box-sizing: border-box;
     padding: 10px;
 
     background-color: lightblue;
 }
 
+.inputRow{
+  display: flex;
+  flex-flow: row;
+  gap: 10px;
+}
+
 .actionBar{
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
   align-self: flex-end;
 }

@@ -1,5 +1,5 @@
 import { CommonModule} from "@angular/common";
-import { Component, ElementRef, inject, HostBinding, OnInit, ContentChild } from "@angular/core";
+import { Component, ElementRef, inject, HostBinding, OnInit, ContentChild, input } from "@angular/core";
 import { Vector2D } from "../../../models/vector-2d";
 import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.component";
 
@@ -9,13 +9,14 @@ import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.compone
   template: "<ng-content/>",
   styleUrl: "./dvd-logo.component.css"
 })
-export class DvdLogoComponent implements OnInit {
+export class DvdLogoComponent implements OnInit 
+{
   //CONSTANTS
   public static readonly defaultSpeed: number = 500;
   public static readonly defaultBounceVar: number = 1;
 
-  private speed: number = DvdLogoComponent.defaultSpeed;
-  private bounceVariance: number = DvdLogoComponent.defaultBounceVar;
+  public speed = input(DvdLogoComponent.defaultSpeed);
+  public bounceVariance = input(DvdLogoComponent.defaultBounceVar);
   private cornerFrameTolerance = 5;
   
   private elapsedXHit = Infinity;
@@ -34,6 +35,7 @@ export class DvdLogoComponent implements OnInit {
 
   ngOnInit(): void {
     this.resetPosition();
+    this.randomDirection();
   }
 
   randomDirection()
@@ -54,7 +56,7 @@ export class DvdLogoComponent implements OnInit {
 
   public moveFrame(dt: DOMHighResTimeStamp)
   {
-    const dtSpeed: number = this.speed * dt;
+    const dtSpeed: number = this.speed() * dt;
 
     const x = this.left + (this.direction.x  * dtSpeed);
     const y = this.top + (this.direction.y * dtSpeed);
@@ -78,7 +80,7 @@ export class DvdLogoComponent implements OnInit {
     const varianceSign = Math.abs(initial) <= Number.EPSILON 
                           ? (Math.random() < 0.5 ? -1 : 1) 
                           : Math.sign(initial)
-    const varianceFactor = Math.random() * this.bounceVariance * varianceSign;
+    const varianceFactor = Math.random() * this.bounceVariance() * varianceSign;
     return initial + varianceFactor;
   }
 

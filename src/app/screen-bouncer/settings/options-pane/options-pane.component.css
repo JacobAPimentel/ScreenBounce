@@ -1,14 +1,14 @@
 :host{
+    --dashPadding: 20px;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
 
     outline: 5px dashed rgb(69, 69, 69);
-    outline-offset: -20px;
+    outline-offset: calc(var(--dashPadding) * -1);
 
-    box-sizing: border-box;
-    padding: 30px;
+    padding: var(--dashPadding);
     
     background-color: white;
 }
@@ -17,10 +17,12 @@ h1{
     all: unset;
     text-align: center;
     font-size: 2.5rem;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
 }
 
 .configBoxHolder{
+    padding: 8px;
+    
     display: flex;
     flex-flow: column;
     gap: 10px;

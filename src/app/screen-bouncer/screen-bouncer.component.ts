@@ -1,26 +1,13 @@
 import { CommonModule } from "@angular/common";
-import { Component, ViewChildren, AfterViewInit, QueryList } from "@angular/core";
+import { Component, ViewChildren, AfterViewInit, QueryList, inject } from "@angular/core";
 import { DvdLogoComponent } from "./dvd-logo/dvd-logo.component";
 import { LogoTextComponent } from "./logo-text/logo-text.component";
 import { LogoSvgComponent } from "./logo-svg/logo-svg.component";
 import { CollapsibleComponent } from "./collapsible/collapsible.component";
 import { OptionsPaneComponent } from "./settings/options-pane/options-pane.component";
-
-export type Logo = LogoText | LogoSvg
-
-export interface BaseLogo {
-  size: number;
-}
-
-export interface LogoText extends BaseLogo {
-  type: "text";
-  text: string;
-}
-
-export interface LogoSvg extends BaseLogo {
-  type: "svg"
-  filePath?: string;
-}
+import { DatabaseService } from "../../services/database.service";
+import { Logo, LogoBase, LogoImage } from "../../models/logo";
+import { LogosCacheService } from "../../services/logos-cache.service";
 
 @Component({
   selector: "app-screenbouncer",
@@ -29,16 +16,15 @@ export interface LogoSvg extends BaseLogo {
   styleUrl: "./screen-bouncer.component.css",
 })
 export class DvdScreensaverComponent implements AfterViewInit {
+  cache = inject(LogosCacheService);
   isExpanded = false;
   minWinSize: number = Math.min(window.innerHeight,window.innerWidth)
   moveId: number = 0;
-  logos: Logo[] = [
-    {type: "svg", size: Math.min(500,this.minWinSize * 0.5)}
-  ];
+
   @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
 
-  ngAfterViewInit(){
-    this.logoComps.forEach((logo: DvdLogoComponent) => {logo.randomDirection()})
+  ngAfterViewInit()
+  {
     this.moveAllLogos();
   }
 

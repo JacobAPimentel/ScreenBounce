@@ -1,3 +1,20 @@
+/*GLOBAL CHANGES*/
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+/* FONTS */
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
+
+/* MAIN WEB */
 html {
     background-color: black;
 }
@@ -6,4 +23,40 @@ body {
     margin: 0px;
     height: 100vh;
     width: 100vw;
+}
+
+/* REUSABLE CSS */
+.img-button{
+    all: unset;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+}
+.img-button > img{
+    display: block;
+}
+
+.scroll{
+    overflow: auto;
+    scrollbar-gutter: stable both-edges;
+    scrollbar-width: thin;
+}
+
+.item-center{
+    align-self: center;
+}
+
+.flex-col{
+    display: flex;
+    flex-flow: column;
+}
+
+.flex-row{
+    display: flex;
+    flex-flow: row;
+}
+
+.fit-parent{
+    width: 100%;
+    height: 100%;
 }

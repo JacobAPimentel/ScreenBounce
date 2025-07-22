@@ -3,7 +3,7 @@
     position: relative; /* relative position so button can use absolute */
 }
 
-.settingsPane{
+.resizePane{
     height: 100%;
     width: 0;
     overflow: hidden;
