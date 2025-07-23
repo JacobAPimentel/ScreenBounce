@@ -120,9 +120,11 @@ export class DatabaseService {
       name: "Default Logo",
       speed: DvdLogoComponent.defaultSpeed,
       bounceVariance: DvdLogoComponent.defaultBounceVar,
-      width: 500,
-      height: 300,
-      source: "assets/DefaultLogo.svg",
+      typeConfig: {
+        width: 500,
+        height: 300,
+        fileSource: "assets/DefaultLogo.svg"
+      }
     }
   }
 }

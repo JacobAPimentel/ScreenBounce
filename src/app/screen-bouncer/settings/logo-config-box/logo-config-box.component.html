@@ -7,11 +7,34 @@
     </div>
     <div class="configArea">
         <div class="inputRow">
-            <app-input-field type="number" [formGroup]="configForm" formName="width" label="Width"/>
-            <app-input-field type="number" [formGroup]="configForm" formName="height" label="Height"/>
+            <div class="flex-col">
+                <label for="typeField">Type</label>
+                <select id="typeField" formControlName="type">
+                    @for(type of logoTypes; track $index)
+                    {
+                        <option [value]="type">{{type}}</option>
+                    }
+                </select>
+            </div>
         </div>
-        <app-input-field type="number" [formGroup]="configForm" formName="speed" label="Speed"/>
-        <app-input-field type="number" [formGroup]="configForm" formName="bounceVariance" label="Bounce Variance"/>
+
+        @switch(logoModel().type)
+        {
+            @case("text") 
+            {
+                <app-input-field type="textarea" [control]="getControl('displayText','typeConfig')" label="Display Text"/>
+                <app-input-field type="number" [control]="getControl('fontSize','typeConfig')" label="Font Size"/>
+            }
+            @case("image")
+            {
+                <div class="inputRow">
+                    <app-input-field type="number" [control]="getControl('width','typeConfig')" label="Width"/>
+                    <app-input-field type="number" [control]="getControl('height','typeConfig')" label="Height"/>
+                </div>
+            }
+        } 
+        <app-input-field type="number" [control]="getControl('speed')" label="Speed"/>
+        <app-input-field type="number" [control]="getControl('bounceVariance')" label="Bounce Variance"/>
     </div>
     <div class="actionBar">
         @if(logoCache.logos.length > 1)

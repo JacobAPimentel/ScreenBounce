@@ -1,11 +1,19 @@
 <!-- Cannot assign formGroup directive to host, therefore we need a div container. -->
-<div [formGroup]="formGroup()" class="main">
-    <label [for]="formName()">{{label()}}</label>
+<div class="flex-col">
+    <label [for]="formID()">{{label()}}</label>
     @switch(type())
     {
         @case("number")
         {
-            <input [id]="formID()" type="number" [formControlName]="formName()" step="any" appInputNumberOnly/>
+            <input [id]="formID()" type="number" [formControl]="control()" step="any" appInputNumberOnly/>
+        }
+        @case("textarea")
+        {
+            <textarea [formControl]="control()"></textarea>
+        }
+        @default
+        {
+            <input [id]="formID()" [type]="type()" [formControl]="control()" />
         }
     }
 </div>

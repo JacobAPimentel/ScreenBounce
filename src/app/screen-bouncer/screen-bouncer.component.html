@@ -7,11 +7,11 @@
                 {
                     @case("text") 
                     {
-                        <app-logo-text [text]="logo.text" [size]="logo.fontSize"/>
+                        <app-logo-text [text]="logo.typeConfig.displayText" [size]="logo.typeConfig.fontSize"/>
                     }
                     @case("image")
                     {
-                        <app-logo-svg [filePath]="logo.source" [size]="logo.width"/>
+                        <app-logo-svg [filePath]="logo.typeConfig.fileSource" [size]="logo.typeConfig.width"/>
                     }
                 } 
             </app-dvd-logo>

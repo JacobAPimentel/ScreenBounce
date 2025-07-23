@@ -1,6 +1,6 @@
 <h1>SETTINGS</h1>
 <div class="scroll configBoxHolder">
-    @for(logo of cache.logos; track $index)
+    @for(logo of cache.logos; track logo.id)
     {
         <app-logo-config-box [logoModel]="logo"/>
     }
