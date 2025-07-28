@@ -27,7 +27,6 @@ const colors = [
   styleUrl: "./colorable-logo.component.css"
 })
 export abstract class ColorableLogoComponent {
-  size = input<number>(200);
   protected color: string = "white";
 
   setRandomColor(): void{

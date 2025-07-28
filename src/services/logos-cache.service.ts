@@ -14,7 +14,6 @@ export class LogosCacheService {
     this.db.logos$.subscribe({
       next: logos => {
         this.logos = logos
-        console.log(this.logos)
       },
       error: err => {
         const defaultLogo = this.db.defaultObject();

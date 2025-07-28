@@ -29,3 +29,23 @@ h1{
 
     flex: 1;
 }
+
+.resetButton{
+    all: unset;
+
+    cursor: pointer;
+    align-self: center;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: bold;
+    width: 175px;
+
+    background-color: rgb(222, 66, 66);
+    color: white;
+
+    padding: 10px;
+    margin: 10px 0px;
+}
+.resetButton:hover{
+    background-color: rgb(127, 45, 45);
+}

@@ -1,0 +1,12 @@
+:host ::ng-deep input{
+}
+
+:host ::ng-deep input.ng-invalid{
+  background-color: ivory;
+  border: none;
+  outline: 2px solid red;
+}
+
+:host ::ng-deep textarea{
+  resize: vertical;
+}

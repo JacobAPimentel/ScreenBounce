@@ -17,7 +17,8 @@ export interface LogoImage extends LogoBase
     typeConfig: {
         width: number,
         height: number,
-        fileSource: string
+        fileSource?: string,
+        colorOpacity: number
     }
 }
 

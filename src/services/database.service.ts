@@ -22,10 +22,9 @@ export class DatabaseService {
   constructor() 
   {
     this.loadSuccess = new Promise((resolve,reject) => {
-      const openRequest: IDBOpenDBRequest = window.indexedDB.open("screenBouncer",1);
+      const openRequest: IDBOpenDBRequest = window.indexedDB.open("screenBouncer",3);
 
       openRequest.onsuccess = (event) => {
-        console.log("SUCCESSFUL OPEN!")
         this.db = openRequest.result;
 
         this.getAllLogos();
@@ -51,7 +50,6 @@ export class DatabaseService {
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
     const logo = obj ?? this.defaultObject();
-    console.log(logo)
     const request = store.add(logo);
 
     request.onsuccess = () => {
@@ -68,6 +66,17 @@ export class DatabaseService {
 
     request.onsuccess = () => {
       this.logoDeletedSubject.next(id);
+    }
+  }
+
+  clearAll()
+  {
+    const tx: IDBTransaction = this.db.transaction("logos","readwrite");
+    const store: IDBObjectStore = tx.objectStore("logos");
+    const request = store.clear();
+
+    request.onsuccess = () => {
+      this.getAllLogos();
     }
   }
 
@@ -104,8 +113,6 @@ export class DatabaseService {
         {
           this.createNewLogo();
         }
-
-        this.logosSubject.complete();
       }
 
       request.onerror = () => {
@@ -123,6 +130,7 @@ export class DatabaseService {
       typeConfig: {
         width: 500,
         height: 300,
+        colorOpacity: 1,
         fileSource: "assets/DefaultLogo.svg"
       }
     }

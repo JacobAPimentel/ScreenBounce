@@ -1,19 +1,26 @@
 <!-- Cannot assign formGroup directive to host, therefore we need a div container. -->
 <div class="flex-col">
-    <label [for]="formID()">{{label()}}</label>
-    @switch(type())
+    <label [for]="id()">{{label()}}</label>
+    @if(content)
     {
-        @case("number")
+        <ng-container *ngTemplateOutlet="content; context: {id: id, control: control()}" />
+    }
+    @else if(control()) 
+    {
+        @switch(type())
         {
-            <input [id]="formID()" type="number" [formControl]="control()" step="any" appInputNumberOnly/>
-        }
-        @case("textarea")
-        {
-            <textarea [formControl]="control()"></textarea>
-        }
-        @default
-        {
-            <input [id]="formID()" [type]="type()" [formControl]="control()" />
+            @case("number")
+            {
+                <input type="number" [id]="id()" [formControl]="control()" step="any" appInputNumberOnly/>
+            }
+            @case("textarea")
+            {
+                <textarea [id]="id()" [formControl]="control()"></textarea>
+            }
+            @default
+            {
+                <input [id]="id()" [type]="type()" [formControl]="control()" />
+            }
         }
     }
 </div>

@@ -1,0 +1,33 @@
+img{
+    width: 30px;
+    height: 30px;
+}
+
+button{
+    all: unset;
+    cursor: pointer;
+    width: 100%;
+}
+
+.clickArea{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    padding: 10px;
+
+    background-color: rgb(203, 226, 234);
+    border-radius: 10px;
+
+    caret-color: transparent;
+}
+.clickArea:hover{
+   background-color: rgb(152, 169, 174); 
+}
+.clickArea > span{
+    width: 100%;
+
+    text-wrap-mode: nowrap;
+    font-size: 0.9rem;
+    text-align: center;
+}

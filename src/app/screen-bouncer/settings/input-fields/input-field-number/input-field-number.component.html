@@ -1,0 +1,10 @@
+<app-input-field-label #base [label]="label()">
+    <input
+        [id] = "base.id" 
+        type="number" 
+        [formControl]="control()"
+        [step]="step()" 
+        [min]="min()" 
+        [max]="max()" 
+        appInputNumberOnly/>
+</app-input-field-label>

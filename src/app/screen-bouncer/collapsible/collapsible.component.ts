@@ -1,15 +1,18 @@
-import { Component, HostListener } from "@angular/core";
+import { NgTemplateOutlet } from "@angular/common";
+import { Component, ContentChild, HostListener, TemplateRef } from "@angular/core";
 
 @Component({
   selector: "app-collapsible",
   templateUrl: "./collapsible.component.html",
   styleUrl: "./collapsible.component.css",
+  imports: [NgTemplateOutlet]
 })
 export class CollapsibleComponent {
   public isExpanded = false;
   public isVisible = false;
   private idleThreshold = 3 * 1000;
   private timeoutId: number | null = null;
+  @ContentChild("content") content!: TemplateRef<unknown>;
 
   @HostListener("document:mousemove",["$event"])
   onMouseMove()

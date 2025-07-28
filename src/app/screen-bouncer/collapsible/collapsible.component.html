@@ -10,11 +10,11 @@
 </button>
 
 <div class="resizePane" [class.expanded]="isExpanded">
-    <!-- Only load expandable when necessary -->
+    <!-- Only load expandable when necessary. Uses Templates as Content Projection still loads prior to @defer -->
     @defer(on interaction(toggle))
     {
         <div class="embeddedPane">
-            <ng-content />
+            <ng-container *ngTemplateOutlet="content" />
         </div>
     }
 </div>

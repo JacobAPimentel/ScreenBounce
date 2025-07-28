@@ -1,0 +1,16 @@
+<app-input-field-label #base [label]="label()">
+    <div class="flex-row">
+        <input type="number" #inputNumber (input)="onChange(inputNumber)"
+            [id]="base.id" 
+            [formControl]="control()" 
+            step="0.05" 
+            min="0" 
+            max="1"
+            appInputNumberOnly />
+        <input type="range" #inputRange (input)="onChange(inputRange)"
+            [formControl]="control()" 
+            step="0.05" 
+            min="0" 
+            max="1" />
+    </div>
+</app-input-field-label>

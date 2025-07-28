@@ -2,6 +2,15 @@
 <div class="scroll configBoxHolder">
     @for(logo of cache.logos; track logo.id)
     {
-        <app-logo-config-box [logoModel]="logo"/>
+        @defer(on viewport)
+        {
+            <app-logo-config-box [logoModel]="logo"/>
+        }
+        @placeholder {
+            <div style="padding: 75px 0px;">Loading...</div>
+        }
     }
 </div>
+<button class="resetButton" (click)="handleReset()">
+    RESET TO DEFAULT
+</button>

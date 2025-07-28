@@ -46,6 +46,10 @@ body {
     align-self: center;
 }
 
+.center-items{
+    align-items: center;
+}
+
 .flex-col{
     display: flex;
     flex-flow: column;

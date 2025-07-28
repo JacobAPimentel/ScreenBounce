@@ -10,5 +10,8 @@ import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.compone
 })
 export class LogoSvgComponent extends ColorableLogoComponent {
   defaultPath: string = "assets/DefaultLogo.svg";
-  filePath  = input("",{transform: (value) => value ?? this.defaultPath});
+  filePath = input("",{transform: (value) => value ?? this.defaultPath});
+  width = input(500);
+  height = input(300);
+  colorOpacity = input(1);
 }

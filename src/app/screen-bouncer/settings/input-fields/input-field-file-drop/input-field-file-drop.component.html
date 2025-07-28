@@ -1,0 +1,9 @@
+<button (click)="fileInput.click()">
+    <div class="clickArea" 
+        (dragover)="onDragOver($event)" (drop)="onDrop($event)" 
+        (mouseenter)="focusClickArea($event,true)" (mouseleave)="focusClickArea($event,false)" (keypress)="$event.preventDefault()" (paste)="onPaste($event)" contenteditable="true">
+        <img src="assets/Upload.svg" alt="Upload"/>
+        <span>DROP FILE OR CLICK HERE </span>
+    </div>
+    <input #fileInput type="file" (change)="onSelected($event)" hidden>
+</button>

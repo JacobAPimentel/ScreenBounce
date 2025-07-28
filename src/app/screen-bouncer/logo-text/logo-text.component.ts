@@ -8,7 +8,7 @@ import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.compone
   styleUrl: "./logo-text.component.css",
   providers: [ {provide: ColorableLogoComponent, useExisting: forwardRef(() => LogoTextComponent) }],
   host: {
-    "[style.font-size.px]": "size()",
+    "[style.font-size.px]": "fontSize()",
     "[style.color]": "color",
   }
 })
