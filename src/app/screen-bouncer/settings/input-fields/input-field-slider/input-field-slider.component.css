@@ -11,5 +11,6 @@ input[type=number] {
 }
 
 input{
+    width: fit-content;
     text-align: center;
 }
