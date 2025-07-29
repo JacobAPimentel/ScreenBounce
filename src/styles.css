@@ -35,6 +35,9 @@ body {
 .img-button > img{
     display: block;
 }
+.img-button.toggledOff{
+    opacity: 0.5;
+}
 
 .scroll{
     overflow: auto;

@@ -1,6 +1,6 @@
 import { Component, input } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { InputFieldLabelComponent } from "../../input-field-label/input-field-label.component";
+import { InputFieldLabelComponent } from "../input-field-label/input-field-label.component";
 
 @Component({
   selector: "app-input-field-number",

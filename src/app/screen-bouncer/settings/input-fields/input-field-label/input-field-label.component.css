@@ -1,4 +1,6 @@
 :host ::ng-deep input{
+  height: 100%;
+  width: 100%;
 }
 
 :host ::ng-deep input.ng-invalid{
@@ -9,4 +11,8 @@
 
 :host ::ng-deep textarea{
   resize: vertical;
+}
+
+.invisible{
+  visibility: hidden;
 }

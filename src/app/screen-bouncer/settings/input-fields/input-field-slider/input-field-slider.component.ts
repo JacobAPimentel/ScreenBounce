@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, input, ViewChild } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { InputNumberOnlyDirective } from "../../../../directives/input-number-only.directive";
-import { InputFieldLabelComponent } from "../../input-field-label/input-field-label.component";
 import { InputFieldNumberComponent } from "../input-field-number/input-field-number.component";
+import { InputFieldLabelComponent } from "../input-field-label/input-field-label.component";
 
 @Component({
   selector: "app-input-field-slider",

@@ -3,6 +3,12 @@ import { Logo, LogoBase, LogoImage } from "../models/logo";
 import { DvdLogoComponent } from "../app/screen-bouncer/dvd-logo/dvd-logo.component";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 
+interface Image
+{
+  id: number
+  fileSource: string
+}
+
 @Injectable({
   providedIn: "root"
 })
@@ -36,6 +42,9 @@ export class DatabaseService {
         if (!openRequest.result.objectStoreNames.contains("logos")) {
           openRequest.result.createObjectStore("logos", {keyPath: "id", autoIncrement: true});
         }
+        if (!openRequest.result.objectStoreNames.contains("images")) {
+          openRequest.result.createObjectStore("images", {keyPath: "id"});
+        }
       };
 
       openRequest.onerror = (event) => {
@@ -45,16 +54,34 @@ export class DatabaseService {
     })
   }
 
+  stripFileSource(obj: Logo)
+  {
+    if(obj.type === "image")
+    {
+      const clone = structuredClone(obj)
+      delete clone.typeConfig.fileSource
+      return clone
+    }
+    return null
+  }
+
   createNewLogo(obj: Logo | null = null)
   {
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
-    const logo = obj ?? this.defaultObject();
-    const request = store.add(logo);
+    const logoModel = obj ?? this.defaultObject();
+
+    const request = store.add(this.stripFileSource(logoModel) ?? logoModel);
 
     request.onsuccess = () => {
-      logo.id = request.result as number;
-      this.logoAddedSubject.next(logo)
+      logoModel.id = request.result as number;
+
+      if(logoModel.type === "image")
+      {
+        this.updateImage(logoModel)
+      }
+
+      this.logoAddedSubject.next(logoModel)
     }
   }
 
@@ -66,11 +93,19 @@ export class DatabaseService {
 
     request.onsuccess = () => {
       this.logoDeletedSubject.next(id);
+
+      const imageTx: IDBTransaction = this.db.transaction("images","readwrite");
+      const imageStore: IDBObjectStore = imageTx.objectStore("images");
+      const imageRequest = imageStore.delete(id);
     }
   }
 
   clearAll()
   {
+    const imageTx: IDBTransaction = this.db.transaction("images","readwrite");
+    const imageStore: IDBObjectStore = imageTx.objectStore("images");
+    imageStore.clear();
+
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
     const request = store.clear();
@@ -88,8 +123,28 @@ export class DatabaseService {
 
     request.onsuccess = () => {
       const logo = request.result as Logo
+
+      const imageTx: IDBTransaction = this.db.transaction("images","readwrite");
+      const imageStore: IDBObjectStore = imageTx.objectStore("images");
+      const imageRequest = imageStore.get(logo.id!)
+
       delete logo.id
-      this.createNewLogo(logo)
+
+      if(logo.type === "image")
+      {
+        imageRequest.onsuccess = () => {
+          const result = imageRequest.result as Image
+          if(result?.fileSource)
+          {
+            logo.typeConfig.fileSource = result.fileSource
+          }
+          this.createNewLogo(logo)
+        }
+      }
+      else
+      {
+        this.createNewLogo(logo)
+      }
     }
   }
 
@@ -97,26 +152,91 @@ export class DatabaseService {
   {
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
+
+    if(patch.type === "image")
+    {
+      patch = structuredClone(patch)
+      this.updateImage(patch)
+      delete patch.typeConfig.fileSource
+    }
     const request = store.put(patch);
+
+    return patch;
+  }
+
+  updateImage(patch: LogoImage)
+  {
+    if(!patch.typeConfig.fileSource || patch.typeConfig.fileSource == "assets/DefaultLogo.svg") return;
+    const fileSource: string = patch.typeConfig.fileSource
+
+    const imageTx: IDBTransaction = this.db.transaction("images","readwrite");
+    const imageStore: IDBObjectStore = imageTx.objectStore("images");
+
+    const readResult = imageStore.get(patch.id!)
+
+    readResult.onsuccess = () => {
+      const result = readResult.result as Image
+    
+      if(!result || result.fileSource !== fileSource)
+      {
+        imageStore.put({id: patch.id,fileSource: fileSource})
+      }
+    }
+  }
+
+  getImage(id: number)
+  {
+    return new Promise((resolve,reject) => {
+      const tx: IDBTransaction = this.db.transaction("images","readonly");
+      const store: IDBObjectStore = tx.objectStore("images");
+      const request = store.get(id);
+
+      request.onsuccess = () => {
+        const logo = request.result as Image
+        resolve(logo.fileSource)
+      }
+
+      request.onerror = () => {
+        reject()
+      }
+    })
   }
 
   getAllLogos()
   {
-      const tx: IDBTransaction = this.db.transaction("logos","readonly");
-      const store: IDBObjectStore = tx.objectStore("logos");
-      const request = store.getAll();
+      const imageTx: IDBTransaction = this.db.transaction("images","readonly");
+      const imageStore: IDBObjectStore = imageTx.objectStore("images");
+      const imageRequest = imageStore.getAll();
 
-      request.onsuccess = () => {
-        this.logosSubject.next(request.result as Logo[])
+      imageRequest.onsuccess = () => {
+        const images = imageRequest.result as Image[]
+        const imageMap: Record<number,string> = images.reduce((images, image) => ({...images, [image.id]: image.fileSource}), {})
 
-        if(request.result.length === 0)
-        {
-          this.createNewLogo();
+        const tx: IDBTransaction = this.db.transaction("logos","readonly");
+        const store: IDBObjectStore = tx.objectStore("logos");
+        const request = store.getAll();
+
+        request.onsuccess = () => {
+          const logos = request.result as Logo[]
+
+          logos.forEach((logo) => {
+            if(logo.type === "image" && imageMap[logo.id!])
+            {
+              logo.typeConfig.fileSource = imageMap[logo.id!]
+            }
+          })
+
+          this.logosSubject.next(request.result as Logo[])
+
+          if(request.result.length === 0)
+          {
+            this.createNewLogo();
+          }
         }
-      }
 
-      request.onerror = () => {
-        this.logosSubject.error("READ REQUEST FAILED!");
+        request.onerror = () => {
+          this.logosSubject.error("READ REQUEST FAILED!");
+        }
       }
   }
 
