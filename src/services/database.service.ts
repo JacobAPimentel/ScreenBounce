@@ -219,12 +219,13 @@ export class DatabaseService {
         request.onsuccess = () => {
           const logos = request.result as Logo[]
 
-          logos.forEach((logo) => {
+          for(const logo of logos)
+          {
             if(logo.type === "image" && imageMap[logo.id!])
             {
               logo.typeConfig.fileSource = imageMap[logo.id!]
             }
-          })
+          }
 
           this.logosSubject.next(request.result as Logo[])
 

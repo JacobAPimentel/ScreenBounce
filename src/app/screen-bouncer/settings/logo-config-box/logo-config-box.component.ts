@@ -21,7 +21,8 @@ export class LogoConfigBoxComponent implements OnInit {
   readonly logoTypes = logoTypes;
   logoModel = input.required<Logo>()
 
-  lockRatio = true;
+  aspectRatio: number = 1; // Width:Height
+  lockRatio: boolean = false;
   @ViewChild("nameField") nameField!: ElementRef;
 
   dbCooldown = 100; //milliseconds
@@ -54,40 +55,43 @@ export class LogoConfigBoxComponent implements OnInit {
   ngOnInit(): void {
     this.applyConfig(this.logoModel().type)
     this.configForm.patchValue(this.logoModel());
+    this.toggleAspectRatio()
 
     //Changes will automatically be saved so the DVD logo can be reflected to the user near instantly.
     this.configForm.controls.type.valueChanges.subscribe((value) => {
       this.applyConfig(value as LogoType)
     });
 
-    //Slightly inefficient because I am always listening to this rather than simply listening only when ratio is toggled.
-    let setByRatio = false;
-    [this.configImage.controls.width,this.configImage.controls.height].forEach((control) => {
-      control.statusChanges
-      .pipe(
-        startWith(control.value), // First previous should be the initial value.
-        filter((status) => status === "VALID"), //If status is invalid, do not bother adding it to the pairwise.
-        map(() => control.value), //We only care about the value.
-        pairwise() // Return the pair of the previous value and current.
+    const sizes = [this.configImage.controls.width,this.configImage.controls.height];
+    for(let i = 0; i<sizes.length; i++)
+    {
+      const control = sizes[i];
+      
+      control.statusChanges.pipe(
+        filter((status) => this.lockRatio && status === "VALID"),
+        map(() => control.value)
       )
-      .subscribe(([prev,cur]) => {
-        if(setByRatio)
-        {
-          setByRatio = false;
-          return;
-        }
-        if(!this.lockRatio) return;
-        const scale = cur!/prev! // Should be fine as prev/cur can only occur if status was VALID.
-        const other = control === this.configImage.controls.width 
-                      ? this.configImage.controls.height 
-                      : this.configImage.controls.width;
+      .subscribe((curValue) => 
+      {
+        const other = sizes[((i + 1) % 2)]
+        const otherVal = other === this.configImage.controls.width
+                          ? curValue! / this.aspectRatio
+                          : curValue! * this.aspectRatio
 
-        setByRatio = true;
-        other.setValue(+((other.value || 100) * scale).toFixed(2))
+        other.setValue(Number((otherVal).toFixed(2)),{emitEvent: false});
       })
-    });
+    }
 
-    this.configForm.statusChanges.subscribe((status) => {
+    this.configForm.statusChanges.subscribe(this.updateModelAndDatabase.bind(this));
+  }
+
+  public updateModelAndDatabase()
+  {
+      if(this.configForm.status === "INVALID") return;
+
+      const formObject = this.configForm.getRawValue();
+      Object.assign(this.logoModel(),formObject);
+
       //With the near real-time database update, if the user spam certain actions (such as the slider), it will constantly write to the database.
       //Therefore, implement a small cooldown that starts when the user stops modifying the status.
       if(this.dbTimeout)
@@ -95,15 +99,12 @@ export class LogoConfigBoxComponent implements OnInit {
         clearTimeout(this.dbTimeout);
         this.dbTimeout = null;
       }
-      if(status === "INVALID") return;
 
-      const formObject = this.configForm.getRawValue();
-      Object.assign(this.logoModel(),formObject);
-      this.dbTimeout = window.setTimeout(() => {
+      this.dbTimeout = window.setTimeout(() => 
+      {
         this.dbTimeout = null;
         this.database.modifyLogo(this.logoModel());
       },this.dbCooldown)
-    })
   }
 
   public uploadFile(file: File)
@@ -136,13 +137,11 @@ export class LogoConfigBoxComponent implements OnInit {
         }
         img.remove();
 
-        const ratio = this.lockRatio//temp solution for now
-        this.lockRatio = false; // remove later
+        this.configImage.controls.width.setValue(Number(width.toFixed(2)),{emitEvent: false})
+        this.configImage.controls.height.setValue(Number(height.toFixed(2)),{emitEvent: false})
 
-        this.configImage.controls.width.setValue(+width.toFixed(2)) // The + will convert the sting to a number. It is similar to 0 + "foo"
-        this.configImage.controls.height.setValue(+height.toFixed(2))
-
-        this.lockRatio = ratio //remove later
+        this.setAspectRatio();
+        this.updateModelAndDatabase();
       }
       img.src = content;
     }
@@ -173,9 +172,19 @@ export class LogoConfigBoxComponent implements OnInit {
     this.database.cloneLogo(this.logoModel().id!);
   }
 
+  public setAspectRatio()
+  {
+    this.aspectRatio = this.configImage.controls.height.value! / this.configImage.controls.width.value!
+  }
+
   public toggleAspectRatio()
   {
     this.lockRatio = !this.lockRatio
+
+    if(this.lockRatio && this.configImage.valid)
+    {
+      this.setAspectRatio();
+    }
   }
 
   //Alternatve form than directly doing "config.controls[x]"

@@ -61,8 +61,8 @@ export class DvdLogoComponent implements OnInit
     const x = this.left + (this.direction.x  * dtSpeed);
     const y = this.top + (this.direction.y * dtSpeed);
 
-    this.elapsedXHit += 1;
-    this.elapsedYHit += 1
+    this.elapsedXHit++;
+    this.elapsedYHit++;
     this.evaluateHits(x,y);
 
     this.left = this.clamp(this.left + (this.direction.x * dtSpeed),0,this.host.nativeElement.parentElement.offsetWidth - this.host.nativeElement.offsetWidth);

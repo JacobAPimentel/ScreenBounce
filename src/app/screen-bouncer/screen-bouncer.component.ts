@@ -35,9 +35,11 @@ export class DvdScreensaverComponent implements AfterViewInit {
     this.moveId = requestAnimationFrame((timestamp: DOMHighResTimeStamp) => {
       const dt: DOMHighResTimeStamp = (timestamp - startTime)/1000;
 
-      this.logoComps.forEach((logo: DvdLogoComponent) => {
+      for(const logo of this.logoComps)
+      {
         logo.moveFrame(dt);
-      })
+      }
+      
       this.moveAllLogos();
     })
   }
