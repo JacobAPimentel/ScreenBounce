@@ -3,7 +3,8 @@ import { Directive, HostListener } from "@angular/core";
 @Directive({
   selector: "[appInputNumberOnly]"
 })
-export class InputNumberOnlyDirective {
+export class InputNumberOnlyDirective 
+{
   private isPotentialNumberInput(str: string): boolean
   {
     return /^^-?[0-9.]*$/.test(str);
@@ -20,7 +21,7 @@ export class InputNumberOnlyDirective {
     else if(event instanceof ClipboardEvent)
       str = event.clipboardData?.getData("text");
     else
-      str = event.dataTransfer?.getData("text")
+      str = event.dataTransfer?.getData("text");
 
     if(!str || this.isPotentialNumberInput(str)) return;
     event.preventDefault();

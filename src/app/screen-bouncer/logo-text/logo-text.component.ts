@@ -12,7 +12,8 @@ import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.compone
     "[style.color]": "color",
   }
 })
-export class LogoTextComponent extends ColorableLogoComponent {
+export class LogoTextComponent extends ColorableLogoComponent 
+{
   text: InputSignal<string> = input("DVD");
   fontSize: InputSignal<number> = input(10);
 }

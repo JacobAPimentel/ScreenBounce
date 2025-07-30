@@ -17,9 +17,10 @@ import { combineLatest, filter, map, pairwise, startWith } from "rxjs";
   templateUrl: "./logo-config-box.component.html",
   styleUrl: "./logo-config-box.component.css"
 })
-export class LogoConfigBoxComponent implements OnInit {
+export class LogoConfigBoxComponent implements OnInit 
+{
   readonly logoTypes = logoTypes;
-  logoModel = input.required<Logo>()
+  logoModel = input.required<Logo>();
 
   aspectRatio: number = 1; // Width:Height
   lockRatio: boolean = false;
@@ -37,12 +38,12 @@ export class LogoConfigBoxComponent implements OnInit {
     width: [500,CustomValidators.isNumber],
     height: [300,CustomValidators.isNumber],
     colorOpacity: [1,CustomValidators.isNumber]
-  })
+  });
 
   configText = this.formBuilder.group({
     displayText: "DVD",
     fontSize: [50,CustomValidators.isNumber],
-  })
+  });
 
   configForm = this.formBuilder.group({
     name: "Default Logo",
@@ -50,16 +51,18 @@ export class LogoConfigBoxComponent implements OnInit {
     typeConfig: this.configImage as (typeof this.configImage | typeof this.configText),
     speed: [DvdLogoComponent.defaultSpeed,CustomValidators.isNumber],
     bounceVariance: [DvdLogoComponent.defaultBounceVar,CustomValidators.isNumber],
-  },{updateOn: "change"})
+  },{updateOn: "change"});
 
-  ngOnInit(): void {
-    this.applyConfig(this.logoModel().type)
+  ngOnInit(): void 
+  {
+    this.applyConfig(this.logoModel().type);
     this.configForm.patchValue(this.logoModel());
-    this.toggleAspectRatio()
+    this.toggleAspectRatio();
 
     //Changes will automatically be saved so the DVD logo can be reflected to the user near instantly.
-    this.configForm.controls.type.valueChanges.subscribe((value) => {
-      this.applyConfig(value as LogoType)
+    this.configForm.controls.type.valueChanges.subscribe((value) => 
+    {
+      this.applyConfig(value as LogoType);
     });
 
     const sizes = [this.configImage.controls.width,this.configImage.controls.height];
@@ -73,13 +76,13 @@ export class LogoConfigBoxComponent implements OnInit {
       )
       .subscribe((curValue) => 
       {
-        const other = sizes[((i + 1) % 2)]
+        const other = sizes[((i + 1) % 2)];
         const otherVal = other === this.configImage.controls.width
                           ? curValue! / this.aspectRatio
-                          : curValue! * this.aspectRatio
+                          : curValue! * this.aspectRatio;
 
         other.setValue(Number((otherVal).toFixed(2)),{emitEvent: false});
-      })
+      });
     }
 
     this.configForm.statusChanges.subscribe(this.updateModelAndDatabase.bind(this));
@@ -104,52 +107,54 @@ export class LogoConfigBoxComponent implements OnInit {
       {
         this.dbTimeout = null;
         this.database.modifyLogo(this.logoModel());
-      },this.dbCooldown)
+      },this.dbCooldown);
   }
 
   public uploadFile(file: File)
   {
     if(file.size > (5 * 1e6))
     {
-      window.alert("File size exceeded 5 megabytes")
-      return
+      window.alert("File size exceeded 5 megabytes");
+      return;
     }
 
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
 
-    reader.onload = (event) => {
-      const content = event.target!.result as string
-      this.configImage.controls.fileSource.setValue(content)
+    reader.onload = (event) => 
+    {
+      const content = event.target!.result as string;
+      this.configImage.controls.fileSource.setValue(content);
 
-      const img = new Image()
-      img.onload = () => {
+      const img = new Image();
+      img.onload = () => 
+      {
         let width: number = img.width;
         let height: number = img.height;
 
         const highest = Math.max(img.width,img.height);
         if(highest > 500)
         {
-          const scale = 500/highest
+          const scale = 500/highest;
           width *= scale;
           height *= scale;
         }
         img.remove();
 
-        this.configImage.controls.width.setValue(Number(width.toFixed(2)),{emitEvent: false})
-        this.configImage.controls.height.setValue(Number(height.toFixed(2)),{emitEvent: false})
+        this.configImage.controls.width.setValue(Number(width.toFixed(2)),{emitEvent: false});
+        this.configImage.controls.height.setValue(Number(height.toFixed(2)),{emitEvent: false});
 
         this.setAspectRatio();
         this.updateModelAndDatabase();
-      }
+      };
       img.src = content;
-    }
+    };
   }
 
   public applyConfig(type: LogoType)
   {
-    this.configForm.setControl("typeConfig",type === "image" ? this.configImage : this.configText)
+    this.configForm.setControl("typeConfig",type === "image" ? this.configImage : this.configText);
   }
 
   public selectName()
@@ -174,12 +179,12 @@ export class LogoConfigBoxComponent implements OnInit {
 
   public setAspectRatio()
   {
-    this.aspectRatio = this.configImage.controls.height.value! / this.configImage.controls.width.value!
+    this.aspectRatio = this.configImage.controls.height.value! / this.configImage.controls.width.value!;
   }
 
   public toggleAspectRatio()
   {
-    this.lockRatio = !this.lockRatio
+    this.lockRatio = !this.lockRatio;
 
     if(this.lockRatio && this.configImage.valid)
     {
@@ -190,13 +195,13 @@ export class LogoConfigBoxComponent implements OnInit {
   //Alternatve form than directly doing "config.controls[x]"
   public getControl(formName: string, groupName?: string): FormControl
   {
-    const controlName = (groupName ? `${groupName}.` : "") + formName
-    const formControl = this.configForm.get(controlName)
+    const controlName = (groupName ? `${groupName}.` : "") + formName;
+    const formControl = this.configForm.get(controlName);
     if(formControl instanceof FormControl)
     {
       return formControl;
     }
-    throw new Error("Form Control " + formName + " not found!")
+    throw new Error("Form Control " + formName + " not found!");
   }
 
 }

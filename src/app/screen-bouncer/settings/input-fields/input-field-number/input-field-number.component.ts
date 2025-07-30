@@ -8,7 +8,8 @@ import { InputFieldLabelComponent } from "../input-field-label/input-field-label
   templateUrl: "./input-field-number.component.html",
   styleUrl: "./input-field-number.component.css"
 })
-export class InputFieldNumberComponent {
+export class InputFieldNumberComponent 
+{
   public control = input.required<FormControl>();
   public label = input<string>();
 

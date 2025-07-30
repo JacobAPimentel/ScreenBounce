@@ -29,11 +29,12 @@ export class DvdLogoComponent implements OnInit
 
   @HostBinding("style.left.px") private left = 0;
   @HostBinding("style.top.px") private top = 0;
-  @HostBinding("style.color") private color = "white"
+  @HostBinding("style.color") private color = "white";
   @HostBinding("style.fill")
-  public host: ElementRef = inject(ElementRef)
+  public host: ElementRef = inject(ElementRef);
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.resetPosition();
     this.randomDirection();
   }
@@ -51,7 +52,7 @@ export class DvdLogoComponent implements OnInit
 
   private clamp(val: number,min: number,max: number)
   {
-    return Math.min(max, Math.max(min,val))
+    return Math.min(max, Math.max(min,val));
   }
 
   public moveFrame(dt: DOMHighResTimeStamp)
@@ -78,8 +79,8 @@ export class DvdLogoComponent implements OnInit
   private applyBounceVariance(initial: number)
   {
     const varianceSign = Math.abs(initial) <= Number.EPSILON 
-                          ? (Math.random() < 0.5 ? -1 : 1) 
-                          : Math.sign(initial)
+                         ? (Math.random() < 0.5 ? -1 : 1) 
+                         : Math.sign(initial);
     const varianceFactor = Math.random() * this.bounceVariance() * varianceSign;
     return initial + varianceFactor;
   }
@@ -98,18 +99,18 @@ export class DvdLogoComponent implements OnInit
 
     if(xWasHit)
     {
-      this.elapsedXHit = 0
+      this.elapsedXHit = 0;
       this.direction.x *= -1;
     }
     if(yWasHit)
     {
-      this.elapsedYHit = 0
+      this.elapsedYHit = 0;
       this.direction.y *= -1;
     }
 
     //Apply some variance
-    this.direction.x = this.applyBounceVariance(this.direction.x)
-    this.direction.y = this.applyBounceVariance(this.direction.y)
+    this.direction.x = this.applyBounceVariance(this.direction.x);
+    this.direction.y = this.applyBounceVariance(this.direction.y);
 
     if(this.elapsedXHit <= this.cornerFrameTolerance && this.elapsedYHit <= this.cornerFrameTolerance)
     {

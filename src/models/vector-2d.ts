@@ -3,10 +3,11 @@ export class Vector2D
     private _x: number;
     private _y: number;
 
-    public get x(): number {return this._x};
-    public set x(x) {this._x = x}
-    public get y(): number {return this._y};
-    public set y(y){this._y = y};
+    public get x(): number {return this._x;}
+    public set x(x) {this._x = x;}
+    
+    public get y(): number {return this._y;}
+    public set y(y){this._y = y;};
 
     constructor(x?: number, y?: number)
     {
@@ -16,10 +17,10 @@ export class Vector2D
 
     public normalize()
     {
-        const mag: number = Math.sqrt(this._x**2 + this.y**2)
-        this.x /= mag
+        const mag: number = Math.sqrt(this._x**2 + this.y**2);
+        this.x /= mag;
         this.y /= mag;
-        return this
+        return this;
     }
 
     public static randomUnit(): Vector2D

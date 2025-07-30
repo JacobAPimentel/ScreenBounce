@@ -15,10 +15,11 @@ import { LogosCacheService } from "../../services/logos-cache.service";
   templateUrl: "./screen-bouncer.component.html",
   styleUrl: "./screen-bouncer.component.css",
 })
-export class DvdScreensaverComponent implements AfterViewInit {
+export class DvdScreensaverComponent implements AfterViewInit 
+{
   cache = inject(LogosCacheService);
   isExpanded = false;
-  minWinSize: number = Math.min(window.innerHeight,window.innerWidth)
+  minWinSize: number = Math.min(window.innerHeight,window.innerWidth);
   moveId: number = 0;
 
   @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
@@ -32,7 +33,8 @@ export class DvdScreensaverComponent implements AfterViewInit {
   {
     const startTime: DOMHighResTimeStamp = window.performance.now();
 
-    this.moveId = requestAnimationFrame((timestamp: DOMHighResTimeStamp) => {
+    this.moveId = requestAnimationFrame((timestamp: DOMHighResTimeStamp) => 
+    {
       const dt: DOMHighResTimeStamp = (timestamp - startTime)/1000;
 
       for(const logo of this.logoComps)
@@ -41,7 +43,7 @@ export class DvdScreensaverComponent implements AfterViewInit {
       }
       
       this.moveAllLogos();
-    })
+    });
   }
 
   settingsClicked(isExpanded: boolean)

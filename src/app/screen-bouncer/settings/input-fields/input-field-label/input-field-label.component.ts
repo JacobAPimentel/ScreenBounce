@@ -8,6 +8,6 @@ import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, i
 })
 export class InputFieldLabelComponent
 {
-  public id = crypto.randomUUID()
-  public label = input<string>()
+  public id = crypto.randomUUID();
+  public label = input<string>();
 }

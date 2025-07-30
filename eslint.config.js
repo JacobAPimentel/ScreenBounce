@@ -32,7 +32,9 @@ module.exports = tseslint.config(
       ],
       "quotes": ["warn", "double", { "avoidEscape": true }],
       "@typescript-eslint/no-inferrable-types": "off", // Disables errors due to having types. Ex: let num: number = 10;
-      "@typescript-eslint/no-unused-vars": ["warn"]
+      "@typescript-eslint/no-unused-vars": ["warn"],
+      "brace-style": ["warn", "allman",{"allowSingleLine": true}],
+      "semi": ["warn", "always"]
     },
   },
   {

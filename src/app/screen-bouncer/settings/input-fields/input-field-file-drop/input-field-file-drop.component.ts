@@ -6,16 +6,18 @@ import { Component, ElementRef, output, ViewChild, viewChild } from "@angular/co
   templateUrl: "./input-field-file-drop.component.html",
   styleUrl: "./input-field-file-drop.component.css",
 })
-export class InputFieldFileDropComponent {
+export class InputFieldFileDropComponent 
+{
   public uploaded = output<File>();
 
-  @ViewChild("fileInput") fileInput!: ElementRef<HTMLInputElement>
-  @ViewChild("pasteArea") pasteArea!: ElementRef<HTMLInputElement>
+  @ViewChild("fileInput") fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild("pasteArea") pasteArea!: ElementRef<HTMLInputElement>;
 
   onDragOver(event: DragEvent)
   {
     event.preventDefault();
-    if (event.dataTransfer) {
+    if (event.dataTransfer) 
+    {
       event.dataTransfer.dropEffect = "copy";
     }
   }
@@ -23,7 +25,7 @@ export class InputFieldFileDropComponent {
   emitFile(files?: FileList)
   {
     if(!files || files.length == 0) return;
-    this.uploaded.emit(files[0])
+    this.uploaded.emit(files[0]);
   }
 
   onDrop(event: DragEvent)
@@ -42,7 +44,7 @@ export class InputFieldFileDropComponent {
   {
     const files: FileList | null = (event.target as HTMLInputElement).files;
     if(!files) return;
-    this.emitFile(files)
+    this.emitFile(files);
   }
 
   //If we want pasting, element need to be focused.

@@ -11,8 +11,8 @@ import { DatabaseService } from "../../../../services/database.service";
 })
 export class OptionsPaneComponent
 {
-  cache = inject(LogosCacheService)
-  db = inject(DatabaseService)
+  cache = inject(LogosCacheService);
+  db = inject(DatabaseService);
 
   handleReset()
   {

@@ -17,7 +17,7 @@ export class InputFieldSliderComponent extends InputFieldNumberComponent
 
   onChange(element: HTMLInputElement)
   {
-    const other: HTMLInputElement = (element === this.inputRange.nativeElement ? this.inputNumber : this.inputRange).nativeElement
-    other.value = element.value
+    const other: HTMLInputElement = (element === this.inputRange.nativeElement ? this.inputNumber : this.inputRange).nativeElement;
+    other.value = element.value;
   }
 }

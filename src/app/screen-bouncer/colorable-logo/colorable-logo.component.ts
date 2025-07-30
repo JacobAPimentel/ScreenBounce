@@ -26,11 +26,13 @@ const colors = [
   templateUrl: "./colorable-logo.component.html",
   styleUrl: "./colorable-logo.component.css"
 })
-export abstract class ColorableLogoComponent {
+export abstract class ColorableLogoComponent 
+{
   protected color: string = "white";
 
-  setRandomColor(): void{
-    const filteredColors: string[] = colors.filter((color) => {return color !== this.color});
-    this.color = filteredColors[Math.floor(Math.random() * filteredColors.length)]
+  setRandomColor(): void
+  {
+    const filteredColors: string[] = colors.filter((color) => {return color !== this.color;});
+    this.color = filteredColors[Math.floor(Math.random() * filteredColors.length)];
   }
 }

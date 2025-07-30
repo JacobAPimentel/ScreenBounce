@@ -7,7 +7,8 @@ import { Component, ContentChild, HostListener, TemplateRef } from "@angular/cor
   styleUrl: "./collapsible.component.css",
   imports: [NgTemplateOutlet]
 })
-export class CollapsibleComponent {
+export class CollapsibleComponent 
+{
   public isExpanded = false;
   public isVisible = false;
   private idleThreshold = 3 * 1000;
@@ -20,7 +21,8 @@ export class CollapsibleComponent {
     if(this.timeoutId) window.clearTimeout(this.timeoutId);
     else this.isVisible = true;
     
-    this.timeoutId = window.setTimeout(() => {
+    this.timeoutId = window.setTimeout(() => 
+    {
       this.isVisible = false;
       this.timeoutId = null;
     }, this.idleThreshold);

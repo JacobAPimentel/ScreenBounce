@@ -6,9 +6,10 @@ import { DatabaseService } from "../services/database.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
-    provideAppInitializer(() => {
-      const db = inject(DatabaseService)
-      return db.loadSuccess
+    provideAppInitializer(() => 
+    {
+      const db = inject(DatabaseService);
+      return db.loadSuccess;
     })
   ]
 };
