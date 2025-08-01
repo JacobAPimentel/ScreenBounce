@@ -15,14 +15,12 @@
                     }
                 </select>
             </app-input-field-label>
+            <app-input-field-number [control]="configForm.controls.quantity" label="Qty" [min]="1" [max]="999" [decimals]="false"/>
             @switch(logoModel().type)
             {
                 @case("text") 
                 {
                     <app-input-field-number [control]="configText.controls.fontSize" label="Font Size" [step]="5" />
-                }
-                @case("image")
-                {
                 }
             }
         </div>
@@ -49,8 +47,11 @@
                 </div>
             }
         } 
-        <app-input-field-number label="Speed" [control]="configForm.controls.speed" [step]="5" [max]="99999"/>
-        <app-input-field-number label="Bounce Variance" [control]="configForm.controls.bounceVariance" [step]="1" [min]="-20" [max]="20" />
+        <div class="inputRow">
+            <app-input-field-number label="Speed" [control]="configForm.controls.speed" [step]="5" [max]="99999"/>
+            <app-input-field-number label="Bounce Variance" [control]="configForm.controls.bounceVariance" [step]="1" [min]="-20" [max]="20" />
+        </div>
+
     </div>
     <div class="actionBar">
         @if(logoCache.logos.length > 1)

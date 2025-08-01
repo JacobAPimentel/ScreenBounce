@@ -7,6 +7,7 @@ export interface LogoBase
     name: string,
     type: LogoType,
 
+    quantity: number,
     speed: number,
     bounceVariance: number
 }

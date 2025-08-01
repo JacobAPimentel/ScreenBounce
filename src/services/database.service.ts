@@ -265,6 +265,7 @@ export class DatabaseService
     return {
       type: "image",
       name: "Default Logo",
+      quantity: 1,
       speed: DvdLogoComponent.defaultSpeed,
       bounceVariance: DvdLogoComponent.defaultBounceVar,
       typeConfig: {

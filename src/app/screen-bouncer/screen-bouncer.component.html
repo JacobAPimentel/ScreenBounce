@@ -2,23 +2,26 @@
     <div #viewport class="viewport">
         @for(logo of cache.logos; track logo.id)
         {
-            <app-dvd-logo [speed]="logo.speed" [bounceVariance]="logo.bounceVariance">
-                @switch (logo.type)
-                {
-                    @case("text") 
+            @for(i of [].constructor(logo.quantity); track $index)
+            {
+                <app-dvd-logo [speed]="logo.speed" [bounceVariance]="logo.bounceVariance">
+                    @switch (logo.type)
                     {
-                        <app-logo-text [text]="logo.typeConfig.displayText" [fontSize]="logo.typeConfig.fontSize"/>
-                    }
-                    @case("image")
-                    {
-                        <app-logo-svg 
-                            [filePath]="logo.typeConfig.fileSource" 
-                            [width]="logo.typeConfig.width" 
-                            [height]="logo.typeConfig.height" 
-                            [colorOpacity]="logo.typeConfig.colorOpacity"/>
-                    }
-                } 
-            </app-dvd-logo>
+                        @case("text") 
+                        {
+                            <app-logo-text [text]="logo.typeConfig.displayText" [fontSize]="logo.typeConfig.fontSize"/>
+                        }
+                        @case("image")
+                        {
+                            <app-logo-svg 
+                                [filePath]="logo.typeConfig.fileSource" 
+                                [width]="logo.typeConfig.width" 
+                                [height]="logo.typeConfig.height" 
+                                [colorOpacity]="logo.typeConfig.colorOpacity"/>
+                        }
+                    } 
+                </app-dvd-logo>
+            }
         }
     </div>
     <app-collapsible>

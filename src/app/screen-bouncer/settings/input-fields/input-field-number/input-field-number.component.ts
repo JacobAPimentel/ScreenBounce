@@ -1,10 +1,11 @@
 import { Component, input } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { InputFieldLabelComponent } from "../input-field-label/input-field-label.component";
+import { InputNumberOnlyDirective } from "../../../../directives/input-number-only.directive";
 
 @Component({
   selector: "app-input-field-number",
-  imports: [ReactiveFormsModule,InputFieldLabelComponent],
+  imports: [ReactiveFormsModule,InputFieldLabelComponent,InputNumberOnlyDirective],
   templateUrl: "./input-field-number.component.html",
   styleUrl: "./input-field-number.component.css"
 })
@@ -16,4 +17,6 @@ export class InputFieldNumberComponent
   public step = input<number>(1);
   public min = input<number>(0);
   public max = input<number>(10000);
+
+  public decimals = input<boolean>(true);
 }

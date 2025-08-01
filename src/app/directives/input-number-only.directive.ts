@@ -1,15 +1,36 @@
-import { Directive, HostListener } from "@angular/core";
+import { Directive, HostListener, input } from "@angular/core";
 
 @Directive({
   selector: "[appInputNumberOnly]"
 })
 export class InputNumberOnlyDirective 
 {
-  private isPotentialNumberInput(str: string): boolean
+  decimals = input<boolean>(true);
+
+  /**
+   * Determine if the input is valid.
+   * 
+   * @remarks
+   *  If decimals: ^-?[0-9.]*$
+   *  Else, ^-?[0-9]*$
+   * 
+   * @param str - The input string to be tested.
+   * @returns True if the input is valid.
+   */
+  private isValidInput(str: string): boolean
   {
-    return /^^-?[0-9.]*$/.test(str);
+    return new RegExp("^-?[0-9"
+                      + (this.decimals() ? "." : "")
+                      +"]*$").test(str);
   }
 
+  /**
+   * Determine if the user event (typed in, pasted in, or dragged in) is valid.
+   * If it is not valid, prevent the event from occurring.
+   * 
+   * @param event - The event that was called
+   * @returns void
+   */
   @HostListener("keypress",["$event"])
   @HostListener("paste",["$event"])
   @HostListener("drop",["$event"])
@@ -23,7 +44,7 @@ export class InputNumberOnlyDirective
     else
       str = event.dataTransfer?.getData("text");
 
-    if(!str || this.isPotentialNumberInput(str)) return;
+    if(!str || this.isValidInput(str)) return;
     event.preventDefault();
   }
 }

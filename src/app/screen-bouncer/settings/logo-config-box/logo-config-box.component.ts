@@ -49,6 +49,7 @@ export class LogoConfigBoxComponent implements OnInit
     name: "Default Logo",
     type: "image",
     typeConfig: this.configImage as (typeof this.configImage | typeof this.configText),
+    quantity: [1,CustomValidators.isNumber],
     speed: [DvdLogoComponent.defaultSpeed,CustomValidators.isNumber],
     bounceVariance: [DvdLogoComponent.defaultBounceVar,CustomValidators.isNumber],
   },{updateOn: "change"});

@@ -1,8 +1,3 @@
-:host ::ng-deep input{
-  height: 100%;
-  width: 100%;
-}
-
 :host ::ng-deep input.ng-invalid{
   background-color: ivory;
   border: none;
