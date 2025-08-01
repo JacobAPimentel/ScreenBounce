@@ -1,12 +1,12 @@
 <form class="flex-col" [formGroup]="configForm">
     <div class="nameArea">
-        <input #nameField class="nameField" type="text" formControlName="name" />
-        <button class="img-button item-center" (click)="selectName()">
-            <img src="assets/Pencil.svg" alt="Edit"/>
-        </button>
+        <input #nameField id="nameField" class="nameField" type="text" formControlName="name" />
+        <label for="nameField" [style.cursor]="'pointer'">
+            <img src="assets/Pencil.svg" alt="Edit" [style.display]="'block'"/>
+        </label>
     </div>
     <div class="configArea">
-        <div class="inputRow">
+        <div class="inputRow justify-space-between">
             <app-input-field-label #typeField label="Type">
                 <select [id]="typeField.id" [formControl]="configForm.controls.type">
                     @for(type of logoTypes; track $index)
@@ -15,7 +15,6 @@
                     }
                 </select>
             </app-input-field-label>
-            <app-input-field-number [control]="configForm.controls.quantity" label="Qty" [min]="1" [max]="999" [decimals]="false"/>
             @switch(logoModel().type)
             {
                 @case("text") 
@@ -23,6 +22,7 @@
                     <app-input-field-number [control]="configText.controls.fontSize" label="Font Size" [step]="5" />
                 }
             }
+            <app-input-field-number [control]="configForm.controls.quantity" label="Qty" [style.text-align]="'center'" [min]="1" [max]="999" [decimals]="false"/>
         </div>
         @switch(logoModel().type)
         {
@@ -37,8 +37,8 @@
                 <app-input-field-file-drop (uploaded)="uploadFile($event)" />
                 <app-input-field-slider label="Color Opacity" [control]="configImage.controls.colorOpacity" [step]="0.05" [min]="0" [max]="1"/>
                 <div class="inputRow">
-                    <app-input-field-number label="Width" [control]="configImage.controls.width" [step]="5" [min]="1" />
-                    <app-input-field-number label="Height" [control]="configImage.controls.height" [step]="5" [min]="1" />
+                    <app-input-field-number class="item-grow" label="Width" [control]="configImage.controls.width" [step]="5" [min]="1" [max]="6000"/>
+                    <app-input-field-number class="item-grow" label="Height" [control]="configImage.controls.height" [step]="5" [min]="1" [max]="6000" />
                     <app-input-field-label>
                         <button class="img-button item-center" [class.toggledOff]="!lockRatio" (click)="toggleAspectRatio()">
                             <img src="assets/AspectRatio.svg" alt="Toggle Aspect Ratio"/>
@@ -49,7 +49,7 @@
         } 
         <div class="inputRow">
             <app-input-field-number label="Speed" [control]="configForm.controls.speed" [step]="5" [max]="99999"/>
-            <app-input-field-number label="Bounce Variance" [control]="configForm.controls.bounceVariance" [step]="1" [min]="-20" [max]="20" />
+            <app-input-field-number label="Bounce Drag" [control]="configForm.controls.bounceVariance" [step]="1" [min]="-20" [max]="20" />
         </div>
 
     </div>

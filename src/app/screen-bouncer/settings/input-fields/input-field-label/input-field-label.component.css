@@ -1,3 +1,7 @@
+label{
+  text-align: inherit;
+}
+
 :host ::ng-deep input.ng-invalid{
   background-color: ivory;
   border: none;
@@ -6,8 +10,4 @@
 
 :host ::ng-deep textarea{
   resize: vertical;
-}
-
-.invisible{
-  visibility: hidden;
 }

@@ -48,6 +48,9 @@ img{
   flex-flow: row;
   gap: 10px;
 }
+.inputRow > *{
+  min-width: 0;
+}
 
 .actionBar{
   display: flex;

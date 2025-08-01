@@ -1,4 +1,11 @@
 <div class="flex-col">
-    <label [for]="id" [class.invisible]="!label()">{{label() || "&nbsp;"}}</label>
+    @if(label(); as label)
+    {
+        <label [for]="id">{{label}}</label>
+    }
+    @else
+    {
+        <span>&nbsp;</span>
+    }
     <ng-content />
 </div>

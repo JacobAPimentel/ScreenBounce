@@ -29,8 +29,6 @@ body {
 .img-button{
     all: unset;
     cursor: pointer;
-    height: fit-content;
-    width: fit-content;
 }
 .img-button > img{
     display: block;
@@ -45,10 +43,12 @@ body {
     scrollbar-width: thin;
 }
 
-.item-center{
-    align-self: center;
+.fit-parent{
+    width: 100%;
+    height: 100%;
 }
 
+/* FLEX */
 .center-items{
     align-items: center;
 }
@@ -56,14 +56,23 @@ body {
 .flex-col{
     display: flex;
     flex-flow: column;
+    justify-content: start;
 }
 
 .flex-row{
     display: flex;
     flex-flow: row;
+    justify-content: start;
 }
 
-.fit-parent{
-    width: 100%;
-    height: 100%;
+.justify-space-between{
+    justify-content: space-between;
+}
+
+.item-center{
+    align-self: center;
+}
+
+.item-grow{
+    flex-grow: 1;
 }

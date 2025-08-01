@@ -158,11 +158,6 @@ export class LogoConfigBoxComponent implements OnInit
     this.configForm.setControl("typeConfig",type === "image" ? this.configImage : this.configText);
   }
 
-  public selectName()
-  {
-    this.nameField.nativeElement.select();
-  }
-
   public createNewLogo()
   {
     this.database.createNewLogo();

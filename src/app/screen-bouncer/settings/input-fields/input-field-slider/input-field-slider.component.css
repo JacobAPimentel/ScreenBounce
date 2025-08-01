@@ -13,3 +13,7 @@ input[type=number] {
 input{
     text-align: center;
 }
+
+input[type="range"]{
+  flex: 1;
+}
