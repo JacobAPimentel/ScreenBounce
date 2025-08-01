@@ -1,10 +1,11 @@
-import { Component, ElementRef, output, ViewChild, viewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, output, ViewChild, viewChild } from "@angular/core";
 
 @Component({
   selector: "app-input-field-file-drop",
   imports: [],
   templateUrl: "./input-field-file-drop.component.html",
   styleUrl: "./input-field-file-drop.component.css",
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputFieldFileDropComponent 
 {
