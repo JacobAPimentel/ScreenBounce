@@ -10,6 +10,7 @@ import { InputFieldSliderComponent } from "../input-fields/input-field-slider/in
 import { InputFieldFileDropComponent } from "../input-fields/input-field-file-drop/input-field-file-drop.component";
 import { InputFieldLabelComponent } from "../input-fields/input-field-label/input-field-label.component";
 import { combineLatest, filter, map, pairwise, startWith } from "rxjs";
+import { LogoSvgComponent } from "../../logo-svg/logo-svg.component";
 
 @Component({
   selector: "app-logo-config-box",
@@ -120,7 +121,6 @@ export class LogoConfigBoxComponent implements OnInit
     }
 
     const reader = new FileReader();
-
     reader.readAsDataURL(file);
 
     reader.onload = (event) => 
@@ -131,16 +131,7 @@ export class LogoConfigBoxComponent implements OnInit
       const img = new Image();
       img.onload = () => 
       {
-        let width: number = img.width;
-        let height: number = img.height;
-
-        const highest = Math.max(img.width,img.height);
-        if(highest > 500)
-        {
-          const scale = 500/highest;
-          width *= scale;
-          height *= scale;
-        }
+        const [width,height] = LogoSvgComponent.determineSpawnSize(img.width,img.height);
         img.remove();
 
         this.configImage.controls.width.setValue(Number(width.toFixed(2)),{emitEvent: false});

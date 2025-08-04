@@ -1,33 +1,69 @@
 :host{
-    --width: 300px;
+    --width: max(300px,20rem);
+    --height: max(100vh - 200px);
     position: relative; /* relative position so button can use absolute */
 }
 
 .resizePane{
-    height: 100%;
-    width: 0;
     overflow: hidden;
-    transition: width 0.25s ease;
+
+    @media(width > 500px)
+    {
+        height: 100%;
+        width: 0;
+        transition: width 0.25s ease;
+    }
+    @media(width <= 500px)
+    {
+        width: 100%;
+        height: 0;
+        transition: height 0.25s ease;
+    }
 }
 
 .expanded,
 .embeddedPane{
-    height: 100%;
-    width: var(--width);
+    @media(width > 500px)
+    {
+        width: var(--width);
+        height: 100%;
+    }
+    @media(width <= 500px)
+    {
+        width: 100%;
+        height: var(--height);
+    }
 }
 
 .anchor{
     position: absolute;
-    top: 10px;
-    left: -40px; /* negative "pulls" towards the left. */
+
+    @media(width > 500px)
+    {
+        top: 10px;
+        left: -40px; /* negative "pulls" towards the left. */
+    }
+    @media(width <= 500px)
+    {
+        top: -40px;
+        left: calc(100%/2);
+    }
 }
 
 .settings{
     transition: opacity 0.25s ease;
+
+    &:hover{
+        transition: transform 0.7s ease-in-out;
+        transform: rotate(180deg);
+    }
 }
-.settings:hover{
-    transition: transform 0.7s ease-in-out;
-    transform: rotate(180deg);
+
+.arrow{
+    @media(width <= 500px)
+    {
+        transform: rotate(90deg);
+    }
 }
 
 .invisible

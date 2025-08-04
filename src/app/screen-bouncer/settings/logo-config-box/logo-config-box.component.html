@@ -1,7 +1,7 @@
 <form class="flex-col" [formGroup]="configForm">
     <div class="nameArea">
         <input #nameField id="nameField" class="nameField" type="text" formControlName="name" />
-        <label for="nameField" [style.cursor]="'pointer'">
+        <label for="nameField" class="flex-row" [style.cursor]="'pointer'">
             <img src="assets/Pencil.svg" alt="Edit" [style.display]="'block'"/>
         </label>
     </div>

@@ -29,12 +29,13 @@ body {
 .img-button{
     all: unset;
     cursor: pointer;
-}
-.img-button > img{
-    display: block;
-}
-.img-button.toggledOff{
-    opacity: 0.5;
+
+    & > img{
+        display: block;
+    }
+    &.toggledOff{
+        opacity: 0.5;
+    }
 }
 
 .scroll{

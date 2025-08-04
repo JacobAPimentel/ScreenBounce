@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Logo, LogoBase, LogoImage } from "../models/logo";
 import { DvdLogoComponent } from "../app/screen-bouncer/dvd-logo/dvd-logo.component";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { LogoSvgComponent } from "../app/screen-bouncer/logo-svg/logo-svg.component";
 
 interface Image
 {
@@ -262,6 +263,8 @@ export class DatabaseService
 
   defaultObject(): LogoImage
   {
+    const [width,height] = LogoSvgComponent.determineSpawnSize(500,300);
+
     return {
       type: "image",
       name: "Default Logo",
@@ -269,8 +272,8 @@ export class DatabaseService
       speed: DvdLogoComponent.defaultSpeed,
       bounceVariance: DvdLogoComponent.defaultBounceVar,
       typeConfig: {
-        width: 500,
-        height: 300,
+        width: width,
+        height: height,
         colorOpacity: 1,
         fileSource: "assets/DefaultLogo.svg"
       }
