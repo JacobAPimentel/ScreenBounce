@@ -11,8 +11,10 @@ export class CollapsibleComponent
 {
   public isExpanded = false;
   public isVisible = false;
+  public isTransitioning = false;
   private idleThreshold = 3 * 1000;
   private timeoutId: number | null = null;
+
   @ContentChild("content") content!: TemplateRef<unknown>;
 
   @HostListener("document:mousemove",["$event"])
@@ -31,5 +33,13 @@ export class CollapsibleComponent
   onClicked()
   {
     this.isExpanded = !this.isExpanded;
+
+    //We do not want media query breakpoints to trigger the transition. Therefore, the transition is only active for onClicked().
+    this.isTransitioning = true;
+  }
+
+  transitionEnded()
+  {
+    this.isTransitioning = false;
   }
 }
