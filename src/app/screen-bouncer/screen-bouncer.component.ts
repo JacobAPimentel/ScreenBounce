@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, ViewChildren, AfterViewInit, QueryList, inject } from "@angular/core";
 import { DvdLogoComponent } from "./dvd-logo/dvd-logo.component";
 import { LogoTextComponent } from "./logo-text/logo-text.component";
-import { LogoSvgComponent } from "./logo-svg/logo-svg.component";
+import { LogoImageComponent } from "./logo-image/logo-image.component";
 import { CollapsibleComponent } from "./collapsible/collapsible.component";
 import { OptionsPaneComponent } from "./settings/options-pane/options-pane.component";
 import { DatabaseService } from "../../services/database.service";
@@ -11,7 +11,7 @@ import { LogosCacheService } from "../../services/logos-cache.service";
 
 @Component({
   selector: "app-screenbouncer",
-  imports: [CommonModule, DvdLogoComponent, LogoTextComponent, LogoSvgComponent, CollapsibleComponent, OptionsPaneComponent],
+  imports: [CommonModule, DvdLogoComponent, LogoTextComponent, LogoImageComponent, CollapsibleComponent, OptionsPaneComponent],
   templateUrl: "./screen-bouncer.component.html",
   styleUrl: "./screen-bouncer.component.css",
 })

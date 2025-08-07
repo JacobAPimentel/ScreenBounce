@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, input, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, inject, input, OnInit, ViewChild } from "@angular/core";
 import {ReactiveFormsModule, FormBuilder, FormControl} from "@angular/forms";
 import { DvdLogoComponent } from "../../dvd-logo/dvd-logo.component";
 import { CustomValidators } from "../../../../models/custom-validators";
@@ -9,8 +9,8 @@ import { InputFieldNumberComponent } from "../input-fields/input-field-number/in
 import { InputFieldSliderComponent } from "../input-fields/input-field-slider/input-field-slider.component";
 import { InputFieldFileDropComponent } from "../input-fields/input-field-file-drop/input-field-file-drop.component";
 import { InputFieldLabelComponent } from "../input-fields/input-field-label/input-field-label.component";
-import { combineLatest, filter, map, pairwise, startWith } from "rxjs";
-import { LogoSvgComponent } from "../../logo-svg/logo-svg.component";
+import { filter, map } from "rxjs";
+import { LogoImageComponent } from "../../logo-image/logo-image.component";
 
 @Component({
   selector: "app-logo-config-box",
@@ -131,11 +131,11 @@ export class LogoConfigBoxComponent implements OnInit
       const img = new Image();
       img.onload = () => 
       {
-        const [width,height] = LogoSvgComponent.determineSpawnSize(img.width,img.height);
+        const [width,height] = LogoImageComponent.determineSpawnSize(img.width,img.height);
         img.remove();
 
-        this.configImage.controls.width.setValue(Number(width.toFixed(2)),{emitEvent: false});
-        this.configImage.controls.height.setValue(Number(height.toFixed(2)),{emitEvent: false});
+        this.configImage.controls.width.setValue(width,{emitEvent: false});
+        this.configImage.controls.height.setValue(height,{emitEvent: false});
 
         this.setAspectRatio();
         this.updateModelAndDatabase();

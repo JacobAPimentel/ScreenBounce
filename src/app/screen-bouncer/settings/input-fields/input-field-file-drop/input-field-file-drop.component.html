@@ -8,6 +8,6 @@
     <input #fileInput 
         type="file" 
         (change)="onSelected($event)"
-        accept="image/png, image/jpeg, image/gif, image/svg, image/webp" 
+        [accept]="validTypes.join(',')"
         hidden>
 </button>

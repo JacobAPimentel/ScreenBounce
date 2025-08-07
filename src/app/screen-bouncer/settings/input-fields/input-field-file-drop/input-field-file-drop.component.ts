@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, output, ViewChild, view
 })
 export class InputFieldFileDropComponent 
 {
+  public validTypes = ["png","jpeg","gif","svg","webp"].map((str) => "image/" + str);
   public uploaded = output<File>();
 
   @ViewChild("fileInput") fileInput!: ElementRef<HTMLInputElement>;
@@ -26,7 +27,12 @@ export class InputFieldFileDropComponent
   emitFile(files?: FileList)
   {
     if(!files || files.length == 0) return;
-    this.uploaded.emit(files[0]);
+    
+    const file = files[0];
+    if(this.validTypes.includes(file.type))
+    {
+      this.uploaded.emit(file);
+    }
   }
 
   onDrop(event: DragEvent)

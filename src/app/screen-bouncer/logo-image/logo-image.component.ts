@@ -2,13 +2,13 @@ import { Component, forwardRef, input } from "@angular/core";
 import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.component";
 
 @Component({
-  selector: "app-logo-svg",
+  selector: "app-logo-image",
   imports: [],
-  templateUrl: "./logo-svg.component.html",
-  styleUrl: "./logo-svg.component.css",
-  providers: [ {provide: ColorableLogoComponent, useExisting: forwardRef(() => LogoSvgComponent) }]
+  templateUrl: "./logo-image.component.html",
+  styleUrl: "./logo-image.component.css",
+  providers: [ {provide: ColorableLogoComponent, useExisting: forwardRef(() => LogoImageComponent) }]
 })
-export class LogoSvgComponent extends ColorableLogoComponent 
+export class LogoImageComponent extends ColorableLogoComponent 
 {
   public static readonly DEFAULT_SIZE: number = 500;
 
@@ -20,7 +20,7 @@ export class LogoSvgComponent extends ColorableLogoComponent
 
   public static determineSpawnSize(width: number, height: number): [number, number]
   {
-    const minSize: number = Math.min(LogoSvgComponent.DEFAULT_SIZE,Math.min(window.innerHeight,window.innerWidth)*0.60);
+    const minSize: number = Math.min(LogoImageComponent.DEFAULT_SIZE,Math.min(window.innerHeight,window.innerWidth)*0.60);
 
     const highest = Math.max(width,height);
     if(highest > minSize)
@@ -30,6 +30,6 @@ export class LogoSvgComponent extends ColorableLogoComponent
       height *= scale;
     }
 
-    return [width,height];
+    return [Number(width.toFixed(2)),Number(height.toFixed(2))];
   }
 }
