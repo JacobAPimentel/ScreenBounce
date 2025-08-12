@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Logo, LogoBase, LogoImage } from "../models/logo";
+import { Logo, LogoImage } from "../models/logo";
 import { DvdLogoComponent } from "../app/screen-bouncer/dvd-logo/dvd-logo.component";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 import { LogoImageComponent } from "../app/screen-bouncer/logo-image/logo-image.component";
 
 interface Image
@@ -106,7 +106,7 @@ export class DatabaseService
 
       const imageTx: IDBTransaction = this.db.transaction("images","readwrite");
       const imageStore: IDBObjectStore = imageTx.objectStore("images");
-      const imageRequest = imageStore.delete(id);
+      imageStore.delete(id);
     };
   }
 
@@ -172,7 +172,7 @@ export class DatabaseService
       this.updateImage(patch);
       delete patch.typeConfig.fileSource;
     }
-    const request = store.put(patch);
+    store.put(patch);
 
     return patch;
   }

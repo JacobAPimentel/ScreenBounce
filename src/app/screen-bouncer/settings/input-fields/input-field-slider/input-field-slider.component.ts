@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, input, ViewChild } from "@angular/core";
-import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { Component, ElementRef, ViewChild } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { InputNumberOnlyDirective } from "../../../../directives/input-number-only.directive";
 import { InputFieldNumberComponent } from "../input-field-number/input-field-number.component";
 import { InputFieldLabelComponent } from "../input-field-label/input-field-label.component";

@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, input, TemplateRef, ViewChild } from "@angular/core";
+import { Component, input } from "@angular/core";
 
 @Component({
   selector: "app-input-field-label",

@@ -30,11 +30,11 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
-      "quotes": ["warn", "double", { "avoidEscape": true }],
+      "quotes": ["warn", "double"],
       "@typescript-eslint/no-inferrable-types": "off", // Disables errors due to having types. Ex: let num: number = 10;
-      "@typescript-eslint/no-unused-vars": ["warn"],
-      "brace-style": ["warn", "allman",{"allowSingleLine": true}],
-      "semi": ["warn", "always"]
+      "@typescript-eslint/no-unused-vars": ["warn",{args: "none"}],
+      "brace-style": ["warn", "allman",{"allowSingleLine": true}], // vertical scoped braces style.
+      "semi": ["warn", "always"] // If there is no semi colon at the end of the line, warn the user.
     },
   },
   {

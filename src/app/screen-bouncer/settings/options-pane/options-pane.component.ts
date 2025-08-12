@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { LogoConfigBoxComponent } from "../logo-config-box/logo-config-box.component";
 import { LogosCacheService } from "../../../../services/logos-cache.service";
 import { DatabaseService } from "../../../../services/database.service";

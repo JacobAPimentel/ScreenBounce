@@ -5,8 +5,6 @@ import { LogoTextComponent } from "./logo-text/logo-text.component";
 import { LogoImageComponent } from "./logo-image/logo-image.component";
 import { CollapsibleComponent } from "./collapsible/collapsible.component";
 import { OptionsPaneComponent } from "./settings/options-pane/options-pane.component";
-import { DatabaseService } from "../../services/database.service";
-import { Logo, LogoBase, LogoImage } from "../../models/logo";
 import { LogosCacheService } from "../../services/logos-cache.service";
 
 @Component({

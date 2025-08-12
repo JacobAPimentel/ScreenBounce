@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, output, ViewChild, viewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, output, ViewChild } from "@angular/core";
 
 @Component({
   selector: "app-input-field-file-drop",
