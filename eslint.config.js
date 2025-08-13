@@ -31,10 +31,12 @@ module.exports = tseslint.config(
         },
       ],
       "quotes": ["warn", "double"],
-      "@typescript-eslint/no-inferrable-types": "off", // Disables errors due to having types. Ex: let num: number = 10;
+      "brace-style": ["warn", "allman",{"allowSingleLine": true}],
+      "semi": ["warn", "always"],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-inferrable-types": "warn",
       "@typescript-eslint/no-unused-vars": ["warn",{args: "none"}],
-      "brace-style": ["warn", "allman",{"allowSingleLine": true}], // vertical scoped braces style.
-      "semi": ["warn", "always"] // If there is no semi colon at the end of the line, warn the user.
+      //"@typescript-eslint/explicit-member-accessibility": "warn"
     },
   },
   {

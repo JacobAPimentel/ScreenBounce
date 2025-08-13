@@ -18,7 +18,7 @@ export class DvdScreensaverComponent implements AfterViewInit
   cache = inject(LogosCacheService);
   isExpanded = false;
   minWinSize: number = Math.min(window.innerHeight,window.innerWidth);
-  moveId: number = 0;
+  moveId = 0;
 
   @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
 

@@ -23,7 +23,7 @@ export class DvdLogoComponent implements OnInit
   private elapsedYHit = Infinity;
   private direction: Vector2D = new Vector2D();
 
-  private moveID: number = 0;
+  private moveID = 0;
 
   @ContentChild(ColorableLogoComponent) innerLogo!: ColorableLogoComponent;
 

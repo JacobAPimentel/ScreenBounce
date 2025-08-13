@@ -12,7 +12,7 @@ export class LogoImageComponent extends ColorableLogoComponent
 {
   public static readonly DEFAULT_SIZE: number = 500;
 
-  defaultPath: string = "assets/DefaultLogo.svg";
+  defaultPath = "assets/DefaultLogo.svg";
   filePath = input("",{transform: (value) => value ?? this.defaultPath});
   width = input(500);
   height = input(300);
@@ -20,7 +20,7 @@ export class LogoImageComponent extends ColorableLogoComponent
 
   public static determineSpawnSize(width: number, height: number): [number, number]
   {
-    const minSize: number = Math.min(LogoImageComponent.DEFAULT_SIZE,Math.min(window.innerHeight,window.innerWidth)*0.60);
+    const minSize = Math.min(LogoImageComponent.DEFAULT_SIZE,Math.min(window.innerHeight,window.innerWidth)*0.60);
 
     const highest = Math.max(width,height);
     if(highest > minSize)

@@ -28,7 +28,7 @@ const colors = [
 })
 export abstract class ColorableLogoComponent 
 {
-  protected color: string = "white";
+  protected color = "white";
 
   setRandomColor(): void
   {

@@ -23,8 +23,8 @@ export class LogoConfigBoxComponent implements OnInit
   readonly logoTypes = logoTypes;
   logoModel = input.required<Logo>();
 
-  aspectRatio: number = 1; // Width:Height
-  lockRatio: boolean = false;
+  aspectRatio = 1; // Width:Height
+  lockRatio = false;
   @ViewChild("nameField") nameField!: ElementRef;
 
   dbCooldown = 100; //milliseconds
