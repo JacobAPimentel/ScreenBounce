@@ -3,7 +3,10 @@
         (dragover)="onDragOver($event)" (drop)="onDrop($event)" 
         (mouseenter)="focusClickArea($event,true)" (mouseleave)="focusClickArea($event,false)" (keypress)="$event.preventDefault()" (paste)="onPaste($event)" contenteditable="true">
         <img src="assets/Upload.svg" alt="Upload" draggable="false"/>
-        <span>DROP FILE OR CLICK HERE </span>
+        @if(hasLabel())
+        {
+            <span>DROP FILE OR CLICK HERE</span>
+        }
     </div>
     <input #fileInput 
         type="file" 

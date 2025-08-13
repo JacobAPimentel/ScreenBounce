@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, output, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, input, output, ViewChild } from "@angular/core";
 
 @Component({
   selector: "app-input-field-file-drop",
@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, output, ViewChild } fro
 })
 export class InputFieldFileDropComponent 
 {
+  public hasLabel = input(true);
   public validTypes = ["png","jpeg","gif","svg","webp"].map((str) => "image/" + str);
   public uploaded = output<File>();
 

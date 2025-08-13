@@ -1,10 +1,13 @@
 <h1>SETTINGS</h1>
+<app-input-field-label #bgColorField label="Background Color" [style.align-self]="'center'" [style.text-align]="'center'">
+    <input type="color" [id]="bgColorField.id" [formControl]="generalForm.controls.backgroundColor" [style.margin]="'auto'">
+</app-input-field-label>
 <div class="scroll configBoxHolder">
     @for(logo of cache.logos; track logo.id)
     {
         @defer(on viewport)
         {
-            <app-logo-config-box [logoModel]="logo"/>
+            <app-logo-config [logoModel]="logo"/>
         }
         @placeholder {
             <div style="padding: 75px 0px;">Loading...</div>

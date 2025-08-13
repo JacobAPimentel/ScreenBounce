@@ -13,12 +13,12 @@ import { filter, map } from "rxjs";
 import { LogoImageComponent } from "../../logo-image/logo-image.component";
 
 @Component({
-  selector: "app-logo-config-box",
+  selector: "app-logo-config",
   imports: [ReactiveFormsModule, InputFieldLabelComponent, InputFieldNumberComponent, InputFieldSliderComponent, InputFieldFileDropComponent],
-  templateUrl: "./logo-config-box.component.html",
-  styleUrl: "./logo-config-box.component.css"
+  templateUrl: "./logo-config.component.html",
+  styleUrl: "./logo-config.component.css"
 })
-export class LogoConfigBoxComponent implements OnInit 
+export class LogoConfigComponent implements OnInit 
 {
   readonly logoTypes = logoTypes;
   logoModel = input.required<Logo>();
