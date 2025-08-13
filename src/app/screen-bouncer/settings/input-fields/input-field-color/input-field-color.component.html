@@ -1,0 +1,6 @@
+<app-input-field-label #base [label]="label()">
+    <div class="flex-row item-center">
+        <input #inputColor type="color" [id]="base.id" [formControl]="control()" (input)="onChange(inputColor)">
+        <input #inputText type="text" [formControl]="control()" (input)="onChange(inputText)">
+    </div>
+</app-input-field-label>

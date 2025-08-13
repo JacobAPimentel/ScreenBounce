@@ -3,11 +3,12 @@ import { LogoConfigComponent } from "../logo-config/logo-config.component";
 import { LogosCacheService } from "../../../../services/logos-cache.service";
 import { DatabaseService } from "../../../../services/database.service";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
-import { InputFieldLabelComponent } from "../input-fields/input-field-label/input-field-label.component";
+import { InputFieldColorComponent } from "../input-fields/input-field-color/input-field-color.component";
+import { CustomValidators } from "../../../../models/custom-validators";
 
 @Component({
   selector: "app-options-pane",
-  imports: [ReactiveFormsModule, LogoConfigComponent, InputFieldLabelComponent],
+  imports: [ReactiveFormsModule, LogoConfigComponent, InputFieldColorComponent],
   templateUrl: "./options-pane.component.html",
   styleUrl: "./options-pane.component.css"
 })
@@ -18,7 +19,7 @@ export class OptionsPaneComponent implements OnInit
 
   formBuilder = inject(FormBuilder);
   generalForm = this.formBuilder.group({
-    backgroundColor: localStorage.getItem("backgroundColor") ?? "black"
+    backgroundColor: [localStorage.getItem("backgroundColor") ?? "black",CustomValidators.isHex]
   },{updateOn: "change"});
 
   cache = inject(LogosCacheService);
@@ -26,9 +27,10 @@ export class OptionsPaneComponent implements OnInit
 
   ngOnInit(): void 
   {
-    this.generalForm.controls.backgroundColor.valueChanges.subscribe((color) => 
+    this.generalForm.controls.backgroundColor.statusChanges.subscribe((status) => 
     {
-      color = color ?? "black";
+      if(status === "INVALID") return;
+      const color = this.generalForm.controls.backgroundColor.value ?? "black";
       localStorage.setItem("backgroundColor",color);
       this.colorModel.set(color);
     });
