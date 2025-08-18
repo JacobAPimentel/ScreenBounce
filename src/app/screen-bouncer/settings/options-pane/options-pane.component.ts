@@ -15,11 +15,11 @@ import { CustomValidators } from "../../../../models/custom-validators";
 export class OptionsPaneComponent implements OnInit
 {
   //If you add more settings, you should do a General Setting service instead rather than having tons of model signals that the parents need to listen to.
-  colorModel = model(localStorage.getItem("backgroundColor") ?? "black");
+  colorModel = model(localStorage.getItem("backgroundColor") ?? "#000000");
 
   formBuilder = inject(FormBuilder);
   generalForm = this.formBuilder.group({
-    backgroundColor: [localStorage.getItem("backgroundColor") ?? "black",CustomValidators.isHex]
+    backgroundColor: [localStorage.getItem("backgroundColor") ?? "#000000",CustomValidators.isHex]
   },{updateOn: "change"});
 
   cache = inject(LogosCacheService);
@@ -30,7 +30,7 @@ export class OptionsPaneComponent implements OnInit
     this.generalForm.controls.backgroundColor.statusChanges.subscribe((status) => 
     {
       if(status === "INVALID") return;
-      const color = this.generalForm.controls.backgroundColor.value ?? "black";
+      const color = this.generalForm.controls.backgroundColor.value ?? "#000000";
       localStorage.setItem("backgroundColor",color);
       this.colorModel.set(color);
     });

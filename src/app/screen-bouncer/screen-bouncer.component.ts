@@ -19,7 +19,7 @@ export class DvdScreensaverComponent implements AfterViewInit
   isExpanded = false;
   minWinSize: number = Math.min(window.innerHeight,window.innerWidth);
   moveId = 0;
-  backgroundColor = localStorage.getItem("backgroundColor") ?? "black";
+  backgroundColor = localStorage.getItem("backgroundColor") ?? "#000000";
 
   @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
 
