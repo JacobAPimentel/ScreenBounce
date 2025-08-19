@@ -6,6 +6,7 @@ import { LogoImageComponent } from "./logo-image/logo-image.component";
 import { CollapsibleComponent } from "./collapsible/collapsible.component";
 import { OptionsPaneComponent } from "./settings/options-pane/options-pane.component";
 import { LogosCacheService } from "../../services/logos-cache.service";
+import { BackgroundService } from "../../services/background.service";
 
 @Component({
   selector: "app-screenbouncer",
@@ -15,11 +16,11 @@ import { LogosCacheService } from "../../services/logos-cache.service";
 })
 export class DvdScreensaverComponent implements AfterViewInit 
 {
+  background = inject(BackgroundService);
   cache = inject(LogosCacheService);
   isExpanded = false;
   minWinSize: number = Math.min(window.innerHeight,window.innerWidth);
   moveId = 0;
-  backgroundColor = localStorage.getItem("backgroundColor") ?? "#000000";
 
   @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
 
@@ -48,10 +49,5 @@ export class DvdScreensaverComponent implements AfterViewInit
   settingsClicked(isExpanded: boolean)
   {
     this.isExpanded = isExpanded;
-  }
-
-  setBackground(color: string)
-  {
-    this.backgroundColor = color;
   }
 }

@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { Component, ContentChild, HostListener, TemplateRef } from "@angular/core";
+import { Component, ContentChild, HostListener, inject, TemplateRef } from "@angular/core";
+import { BackgroundService } from "../../../services/background.service";
 
 @Component({
   selector: "app-collapsible",
@@ -9,6 +10,8 @@ import { Component, ContentChild, HostListener, TemplateRef } from "@angular/cor
 })
 export class CollapsibleComponent 
 {
+  public background = inject(BackgroundService);
+  
   public isExpanded = false;
   public isVisible = false;
   public isTransitioning = false;

@@ -61,7 +61,6 @@
         transform: rotate(180deg);
     }
 }
-
 .arrow{
     @media(width <= 500px)
     {

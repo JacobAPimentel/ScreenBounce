@@ -1,5 +1,5 @@
 <div class="flex">
-    <div #viewport class="viewport" [style.background-color]="backgroundColor">
+    <div #viewport class="viewport" [style.background-color]="background.backgroundColor()">
         @for(logo of cache.logos; track logo.id)
         {
             @for(i of [].constructor(logo.quantity); track $index)
@@ -26,7 +26,7 @@
     </div>
     <app-collapsible>
         <ng-template #content>
-            <app-options-pane (colorModelChange)="setBackground($event)"/>
+            <app-options-pane />
         </ng-template>>
     </app-collapsible>
 </div>

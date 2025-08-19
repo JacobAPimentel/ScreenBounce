@@ -5,6 +5,7 @@ import { DatabaseService } from "../../../../services/database.service";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { InputFieldColorComponent } from "../input-fields/input-field-color/input-field-color.component";
 import { CustomValidators } from "../../../../models/custom-validators";
+import { BackgroundService } from "../../../../services/background.service";
 
 @Component({
   selector: "app-options-pane",
@@ -14,12 +15,10 @@ import { CustomValidators } from "../../../../models/custom-validators";
 })
 export class OptionsPaneComponent implements OnInit
 {
-  //If you add more settings, you should do a General Setting service instead rather than having tons of model signals that the parents need to listen to.
-  colorModel = model(localStorage.getItem("backgroundColor") ?? "#000000");
-
+  background = inject(BackgroundService);
   formBuilder = inject(FormBuilder);
   generalForm = this.formBuilder.group({
-    backgroundColor: [localStorage.getItem("backgroundColor") ?? "#000000",CustomValidators.isHex]
+    backgroundColor: [this.background.backgroundColor(),CustomValidators.isHex]
   },{updateOn: "change"});
 
   cache = inject(LogosCacheService);
@@ -31,8 +30,7 @@ export class OptionsPaneComponent implements OnInit
     {
       if(status === "INVALID") return;
       const color = this.generalForm.controls.backgroundColor.value ?? "#000000";
-      localStorage.setItem("backgroundColor",color);
-      this.colorModel.set(color);
+      this.background.setBackgroundColor(color);
     });
   }
 
