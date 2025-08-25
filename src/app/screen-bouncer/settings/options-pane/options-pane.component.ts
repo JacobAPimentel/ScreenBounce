@@ -33,7 +33,7 @@ export class OptionsPaneComponent implements OnInit
     this.generalForm.controls.backgroundColor.statusChanges.subscribe((status) => 
     {
       if(status === "INVALID") return;
-      const color = this.generalForm.controls.backgroundColor.value ?? "#000000";
+      const color = this.generalForm.controls.backgroundColor.value ?? BackgroundService.DEFAULT_COLOR;
       this.background.setBackgroundColor(color);
     });
   }
@@ -46,6 +46,8 @@ export class OptionsPaneComponent implements OnInit
     if(window.confirm("This will remove all logos. Are you sure?"))
     {
       this.db.clearAll();
+      
+      this.generalForm.controls.backgroundColor.setValue(BackgroundService.DEFAULT_COLOR);
     }
   }
 }
