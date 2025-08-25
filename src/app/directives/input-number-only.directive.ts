@@ -5,7 +5,8 @@ import { Directive, HostListener, input } from "@angular/core";
 })
 export class InputNumberOnlyDirective 
 {
-  decimals = input<boolean>(true);
+  //Properties
+  public decimals = input<boolean>(true);
 
   /**
    * Determine if the input is valid.
@@ -34,7 +35,7 @@ export class InputNumberOnlyDirective
   @HostListener("keypress",["$event"])
   @HostListener("paste",["$event"])
   @HostListener("drop",["$event"])
-  public handleEvent(event: KeyboardEvent | ClipboardEvent | DragEvent)
+  public handleEvent(event: KeyboardEvent | ClipboardEvent | DragEvent): void
   {
     let str: string | undefined;
     if(event instanceof KeyboardEvent)

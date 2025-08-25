@@ -9,5 +9,5 @@ import { RouterOutlet } from "@angular/router";
 })
 export class AppComponent 
 {
-  title = "ScreenBounce";
+  public title = "ScreenBounce";
 }

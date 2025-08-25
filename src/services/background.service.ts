@@ -14,7 +14,7 @@ export class BackgroundService
    * 
    * @param hexColor - The new background's hex color. 
    */
-  public setBackgroundColor(hexColor: string)
+  public setBackgroundColor(hexColor: string): void
   {
     localStorage.setItem("backgroundColor",hexColor);
     this.backgroundColor.set(hexColor);
@@ -28,7 +28,7 @@ export class BackgroundService
    * If lightness is <= 0.5, white icon (#FFFFFF)
    * Else, return black icon (#000000)
    */
-  private determineIconColor(hexColor: string)
+  private determineIconColor(hexColor: string): string
   {
     const rgb = hexColor.slice(1) // remove #
                 .match(/.{2}/g)! //Match all matches of two characters.

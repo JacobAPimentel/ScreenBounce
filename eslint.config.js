@@ -36,7 +36,8 @@ module.exports = tseslint.config(
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-inferrable-types": "warn",
       "@typescript-eslint/no-unused-vars": ["warn",{args: "none"}],
-      //"@typescript-eslint/explicit-member-accessibility": "warn"
+      "@typescript-eslint/explicit-member-accessibility": "warn",
+      "@typescript-eslint/explicit-function-return-type": "warn"
     },
   },
   {

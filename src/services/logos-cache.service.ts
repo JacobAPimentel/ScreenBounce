@@ -13,7 +13,7 @@ export class LogosCacheService
   //Dependencies
   private db = inject(DatabaseService);
   
-  constructor() 
+  public constructor()
   { 
     this.db.logos$.subscribe({
       next: logos => 

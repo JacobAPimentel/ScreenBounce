@@ -26,7 +26,7 @@ export class DvdLogoComponent implements OnInit
 
   private moveID = 0;
 
-  @ContentChild(ColorableLogoComponent) innerLogo!: ColorableLogoComponent;
+  @ContentChild(ColorableLogoComponent) private innerLogo!: ColorableLogoComponent;
 
   @HostBinding("style.left.px") private left = 0;
   @HostBinding("style.top.px") private top = 0;
@@ -36,7 +36,7 @@ export class DvdLogoComponent implements OnInit
   /**
    * On init, center the logo and push it to a random direction.
    */
-  ngOnInit(): void 
+  public ngOnInit(): void 
   {
     this.resetPosition();
     this.randomDirection();
@@ -45,7 +45,7 @@ export class DvdLogoComponent implements OnInit
   /**
    * Set the logo to move in a random direction.
    */
-  randomDirection()
+  public randomDirection(): void
   {
     this.direction = Vector2D.randomUnit();
   }
@@ -53,7 +53,7 @@ export class DvdLogoComponent implements OnInit
   /**
    * Center the logo.
    */
-  resetPosition()
+  public resetPosition(): void
   {
     this.setXPos(window.innerWidth / 2);
     this.setYPos(window.innerHeight / 2);
@@ -68,7 +68,7 @@ export class DvdLogoComponent implements OnInit
    * @returns 
    * A number between min and max.
    */
-  private clamp(val: number,min: number,max: number)
+  private clamp(val: number,min: number,max: number): number
   {
     return Math.min(max, Math.max(min,val));
   }
@@ -78,7 +78,7 @@ export class DvdLogoComponent implements OnInit
    * 
    * @param dt - Delta time
    */
-  public moveFrame(dt: DOMHighResTimeStamp)
+  public moveFrame(dt: DOMHighResTimeStamp): void
   {
     const dtSpeed: number = this.speed() * dt;
 
@@ -99,7 +99,7 @@ export class DvdLogoComponent implements OnInit
    * @param initial The current direction
    * @returns initial + the randomized variance factor.
    */
-  private applyBounceVariance(initial: number)
+  private applyBounceVariance(initial: number): number
   {
     const varianceSign = Math.abs(initial) <= Number.EPSILON 
                          ? (Math.random() < 0.5 ? -1 : 1) 
@@ -151,7 +151,7 @@ export class DvdLogoComponent implements OnInit
    * 
    * @param x - The X value to be set to.
    */
-  private setXPos(x: number)
+  public setXPos(x: number): void
   {
     this.left = (x - this.host.nativeElement.offsetWidth/2);
   }
@@ -161,7 +161,7 @@ export class DvdLogoComponent implements OnInit
    * 
    * @param y - The Y value to be set to.
    */
-  private setYPos(y: number)
+  public setYPos(y: number): void
   {
     this.top = (y - this.host.nativeElement.offsetHeight/2);
   }

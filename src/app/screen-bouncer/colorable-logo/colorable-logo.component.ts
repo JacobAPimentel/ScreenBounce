@@ -33,7 +33,7 @@ export abstract class ColorableLogoComponent
   /**
    * Change the logo color to a new random color. Cannot be the same color as previous.
    */
-  setRandomColor(): void
+  public setRandomColor(): void
   {
     const filteredColors: string[] = colors.filter((color) => {return color !== this.color;});
     this.color = filteredColors[Math.floor(Math.random() * filteredColors.length)];

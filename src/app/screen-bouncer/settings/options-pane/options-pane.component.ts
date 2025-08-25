@@ -28,7 +28,7 @@ export class OptionsPaneComponent implements OnInit
   /**
    * On init, listen to the background color changes and properly update it.
    */
-  ngOnInit(): void 
+  public ngOnInit(): void 
   {
     this.generalForm.controls.backgroundColor.statusChanges.subscribe((status) => 
     {
@@ -41,7 +41,7 @@ export class OptionsPaneComponent implements OnInit
   /**
    * Revert the program to its default.
    */
-  handleReset()
+  protected handleReset(): void
   {
     if(window.confirm("This will remove all logos. Are you sure?"))
     {

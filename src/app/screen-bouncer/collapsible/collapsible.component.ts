@@ -20,7 +20,7 @@ export class CollapsibleComponent
   //Dependencies
   public background = inject(BackgroundService);
 
-  @ContentChild("content") content!: TemplateRef<unknown>;
+  @ContentChild("content") protected content!: TemplateRef<unknown>;
 
   /**
    * On mouse move, make the settings logo visible.
@@ -28,12 +28,12 @@ export class CollapsibleComponent
    * Repeated mouse movement will reset the timeout.
    */
   @HostListener("document:mousemove",["$event"])
-  onMouseMove()
+  private onMouseMove(): void
   {
     if(this.timeoutId) window.clearTimeout(this.timeoutId);
     else this.isVisible = true;
     
-    this.timeoutId = window.setTimeout(() => 
+    this.timeoutId = window.setTimeout((): void =>
     {
       this.isVisible = false;
       this.timeoutId = null;
@@ -45,7 +45,7 @@ export class CollapsibleComponent
    * 
    * Also enables transition animations (property binding will add a transition css rule).
    */
-  onClicked()
+  protected onClicked(): void
   {
     this.isExpanded = !this.isExpanded;
 
@@ -56,7 +56,7 @@ export class CollapsibleComponent
   /**
    * Transition ended, remove transition rule from css (uses property bindings)
    */
-  transitionEnded()
+  protected transitionEnded(): void
   {
     this.isTransitioning = false;
   }

@@ -15,7 +15,7 @@ export class Vector2D
      * @param x
      * @param y 
      */
-    constructor(x?: number, y?: number)
+    public constructor(x?: number, y?: number)
     {
         this._x = x ?? 0;
         this._y = y ?? 0;
@@ -24,9 +24,9 @@ export class Vector2D
     /**
      * Normalize the 2D vector.
      * 
-     * @returns The normalized 2D vector.
+     * @returns {this}
      */
-    public normalize()
+    public normalize(): this
     {
         const mag: number = Math.sqrt(this._x**2 + this.y**2);
         this.x /= mag;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, input, output, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
 
 @Component({
   selector: "app-input-field-file-drop",
@@ -16,16 +16,13 @@ export class InputFieldFileDropComponent
   public validTypes = ["png","jpeg","gif","svg","webp"].map((str) => "image/" + str);
   public hasLabel = input(true);
 
-  @ViewChild("fileInput") fileInput!: ElementRef<HTMLInputElement>;
-  @ViewChild("pasteArea") pasteArea!: ElementRef<HTMLInputElement>;
-
   /**
    * Emit the file that was added.
    * 
    * @param files - The files that should be emitted. We only care about files[0], as the user can only input one file.
    * @returns void
    */
-  emitFile(files?: FileList)
+  private emitFile(files?: FileList): void
   {
     if(!files || files.length == 0) return;
     
@@ -41,7 +38,7 @@ export class InputFieldFileDropComponent
    * 
    * @param event - The drag event
    */
-  onDragOver(event: DragEvent)
+  protected onDragOver(event: DragEvent): void
   {
     event.preventDefault();
     if(event.dataTransfer) 
@@ -55,7 +52,7 @@ export class InputFieldFileDropComponent
    * 
    * @param event - Drag event
    */
-  onDrop(event: DragEvent)
+  protected onDrop(event: DragEvent): void
   {
     event.preventDefault();
     this.emitFile(event.dataTransfer?.files);
@@ -66,7 +63,7 @@ export class InputFieldFileDropComponent
    * 
    * @param event - Paste event
    */
-  onPaste(event: ClipboardEvent)
+  protected onPaste(event: ClipboardEvent): void
   {
     event.preventDefault();
     this.emitFile(event.clipboardData?.files);
@@ -77,7 +74,7 @@ export class InputFieldFileDropComponent
    * 
    * @param event - Select event
    */
-  onSelected(event: Event)
+  protected onSelected(event: Event): void
   {
     const files: FileList | null = (event.target as HTMLInputElement).files;
     if(!files) return;
@@ -91,7 +88,7 @@ export class InputFieldFileDropComponent
    * @param event - Mouse event
    * @param focus - Focus boolean. If true, focus. Else, blur it.
    */
-  focusClickArea(event: MouseEvent,focus: boolean)
+  protected focusClickArea(event: MouseEvent,focus: boolean): void
   {
     if(focus)
     {

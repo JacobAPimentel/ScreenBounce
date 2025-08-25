@@ -12,15 +12,15 @@ import { InputFieldLabelComponent } from "../input-field-label/input-field-label
 })
 export class InputFieldSliderComponent extends InputFieldNumberComponent
 {
-  @ViewChild("inputRange") inputRange!: ElementRef;
-  @ViewChild("inputNumber") inputNumber!: ElementRef;
+  @ViewChild("inputRange") private inputRange!: ElementRef;
+  @ViewChild("inputNumber") private inputNumber!: ElementRef;
 
   /**
    * If the range / number input changed, make sure the other value changes with it.
    * 
    * @param element - The element that was changed.
    */
-  onChange(element: HTMLInputElement)
+  protected onChange(element: HTMLInputElement): void
   {
     const other: HTMLInputElement = (element === this.inputRange.nativeElement ? this.inputNumber : this.inputRange).nativeElement;
     other.value = element.value;

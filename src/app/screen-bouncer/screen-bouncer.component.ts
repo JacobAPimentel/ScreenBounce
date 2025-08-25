@@ -16,20 +16,28 @@ import { BackgroundService } from "../../services/background.service";
 })
 export class DvdScreensaverComponent implements AfterViewInit 
 {
-  background = inject(BackgroundService);
-  cache = inject(LogosCacheService);
-  isExpanded = false;
-  minWinSize: number = Math.min(window.innerHeight,window.innerWidth);
-  moveId = 0;
+  //Properties
+  private moveId = 0;
 
-  @ViewChildren(DvdLogoComponent) logoComps!: QueryList<DvdLogoComponent>;
+  //Dependencies
+  protected background = inject(BackgroundService);
+  protected cache = inject(LogosCacheService);
 
-  ngAfterViewInit()
+
+  @ViewChildren(DvdLogoComponent) private logoComps!: QueryList<DvdLogoComponent>;
+
+  /**
+   * Start moving all of the logos after init.
+   */
+  public ngAfterViewInit(): void
   {
     this.moveAllLogos();
   }
 
-  moveAllLogos() 
+  /**
+   * A cursive function that will constantly move all logos.
+   */
+  private moveAllLogos(): void
   {
     const startTime: DOMHighResTimeStamp = window.performance.now();
 
@@ -44,10 +52,5 @@ export class DvdScreensaverComponent implements AfterViewInit
       
       this.moveAllLogos();
     });
-  }
-
-  settingsClicked(isExpanded: boolean)
-  {
-    this.isExpanded = isExpanded;
   }
 }

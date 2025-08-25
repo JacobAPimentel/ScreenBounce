@@ -28,14 +28,14 @@ export class DatabaseService
   private logoDeletedSubject: Subject<number> = new Subject<number>();
   public logosDeleted$ = this.logoDeletedSubject.asObservable();
 
-  constructor() 
+  public constructor() 
   {
     this.loadSuccess = new Promise((resolve,reject) => 
     {
       const openRequest: IDBOpenDBRequest = window.indexedDB.open("screenBouncer",3);
 
       //After opening the main database, retrieve all logos that is currently in the IndexedDB.
-      openRequest.onsuccess = (event) => 
+      openRequest.onsuccess = (event): void  => 
       {
         this.db = openRequest.result;
         this.getAllLogos();
@@ -43,7 +43,7 @@ export class DatabaseService
       };
 
       //Verify if any objectStoreNames is missing.
-      openRequest.onupgradeneeded = (event) => 
+      openRequest.onupgradeneeded = (event): void => 
       {
         if (!openRequest.result.objectStoreNames.contains("logos")) 
         {
@@ -55,7 +55,7 @@ export class DatabaseService
         }
       };
 
-      openRequest.onerror = (event) => 
+      openRequest.onerror = (event): void => 
       {
         console.error("FAILED TO OPEN DATABASE!");
         resolve(false);
@@ -73,7 +73,7 @@ export class DatabaseService
    * Image object without a file source if successful.
    * Else, null if stripping fails (can fail if object is not an image type).
    */
-  stripFileSource(obj: Logo): LogoImage | null
+  private stripFileSource(obj: Logo): LogoImage | null
   {
     if(obj.type === "image")
     {
@@ -89,14 +89,14 @@ export class DatabaseService
    * 
    * @param obj - OPTIONAL. Object to add to the database. Should NOT have an ID property.
    */
-  createNewLogo(obj?: Logo)
+  public createNewLogo(obj?: Logo): void
   {
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
     const logoModel = obj ?? this.defaultObject();
 
     const request = store.add(this.stripFileSource(logoModel) ?? logoModel);
-    request.onsuccess = () => 
+    request.onsuccess = (): void =>
     {
       logoModel.id = request.result as number;
 
@@ -114,13 +114,13 @@ export class DatabaseService
    * 
    * @param id - The id of the Logo that should be removed from the datastore.
    */
-  deleteLogo(id: number)
+  public deleteLogo(id: number): void
   {
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
     const request = store.delete(id);
 
-    request.onsuccess = () => 
+    request.onsuccess = (): void => 
     {
       this.logoDeletedSubject.next(id);
 
@@ -133,7 +133,7 @@ export class DatabaseService
   /**
    * Remove everything from the image and logos datastore. Afterwards, the default DVD logo will be added.
    */
-  clearAll()
+  public clearAll(): void
   {
     const imageTx: IDBTransaction = this.db.transaction("images","readwrite");
     const imageStore: IDBObjectStore = imageTx.objectStore("images");
@@ -143,7 +143,7 @@ export class DatabaseService
     const store: IDBObjectStore = tx.objectStore("logos");
     const request = store.clear();
 
-    request.onsuccess = () => 
+    request.onsuccess = (): void => 
     {
       this.getAllLogos();
     };
@@ -154,13 +154,13 @@ export class DatabaseService
    * 
    * @param id - The ID of the logo that should be cloned.
    */
-  cloneLogo(id: number)
+  public cloneLogo(id: number): void
   {
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
     const request = store.get(id);
 
-    request.onsuccess = () => 
+    request.onsuccess = (): void =>
     {
       const logo = request.result as Logo;
 
@@ -172,7 +172,7 @@ export class DatabaseService
 
       if(logo.type === "image")
       {
-        imageRequest.onsuccess = () => 
+        imageRequest.onsuccess = (): void =>
         {
           const result = imageRequest.result as Image;
           if(result?.fileSource)
@@ -190,7 +190,7 @@ export class DatabaseService
    * 
    * @param patch - The object that should overwrite. Should have an ID property.
    */
-  modifyLogo(patch: Logo)
+  public modifyLogo(patch: Logo): void
   {
     const tx: IDBTransaction = this.db.transaction("logos","readwrite");
     const store: IDBObjectStore = tx.objectStore("logos");
@@ -213,7 +213,7 @@ export class DatabaseService
    * 
    * @param patch 
    */
-  updateImage(patch: LogoImage)
+  private updateImage(patch: LogoImage): void
   {
     if(!patch.typeConfig.fileSource || patch.typeConfig.fileSource == "assets/DefaultLogo.svg") return;
     const fileSource: string = patch.typeConfig.fileSource;
@@ -222,7 +222,7 @@ export class DatabaseService
     const imageStore: IDBObjectStore = imageTx.objectStore("images");
 
     const readResult = imageStore.get(patch.id!);
-    readResult.onsuccess = () => 
+    readResult.onsuccess = (): void =>
     {
       const result = readResult.result as Image;
     
@@ -239,13 +239,13 @@ export class DatabaseService
    * @remarks
    * If there are no logos found, then a new default one is created.
    */
-  getAllLogos()
+  private getAllLogos(): void
   {
       const imageTx: IDBTransaction = this.db.transaction("images","readonly");
       const imageStore: IDBObjectStore = imageTx.objectStore("images");
       const imageRequest = imageStore.getAll();
 
-      imageRequest.onsuccess = () => 
+      imageRequest.onsuccess = (): void =>
       {
         //Image map of {id: filesource} so Logos can quickly refer to it.
         const images = imageRequest.result as Image[];
@@ -254,7 +254,7 @@ export class DatabaseService
         const tx: IDBTransaction = this.db.transaction("logos","readonly");
         const store: IDBObjectStore = tx.objectStore("logos");
         const request = store.getAll();
-        request.onsuccess = () => 
+        request.onsuccess = (): void =>
         {
           const logos = request.result as Logo[];
 
@@ -275,7 +275,7 @@ export class DatabaseService
           }
         };
 
-        request.onerror = () => 
+        request.onerror = (): void =>
         {
           this.logosSubject.error("READ REQUEST FAILED!");
         };
@@ -285,7 +285,7 @@ export class DatabaseService
   /**
    * @returns Default DVD logo
    */
-  defaultObject(): LogoImage
+  public defaultObject(): LogoImage
   {
     const [width,height] = LogoImageComponent.determineSpawnSize(500,300);
 

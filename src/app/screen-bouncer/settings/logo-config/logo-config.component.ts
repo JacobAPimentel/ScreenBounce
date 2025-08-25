@@ -28,7 +28,7 @@ export class LogoConfigComponent implements OnInit
 
   protected lockRatio = false;
   private aspectRatio = 1; // Width:Height
-  @ViewChild("nameField") nameField!: ElementRef;
+  @ViewChild("nameField") private nameField!: ElementRef;
 
   private dbCooldown = 100; //milliseconds
   private dbTimeout: number | null = null;
@@ -63,7 +63,7 @@ export class LogoConfigComponent implements OnInit
   /**
    * Init the config box and listens to the necessary listeners.
    */
-  ngOnInit(): void 
+  public ngOnInit(): void 
   {
     this.applyConfigType(this.logoModel().type);
     this.configForm.patchValue(this.logoModel());
@@ -105,7 +105,7 @@ export class LogoConfigComponent implements OnInit
    * 
    * @returns void
    */
-  public updateModelAndDatabase()
+  public updateModelAndDatabase(): void
   {
       if(this.configForm.status === "INVALID") return;
 
@@ -120,7 +120,7 @@ export class LogoConfigComponent implements OnInit
         this.dbTimeout = null;
       }
 
-      this.dbTimeout = window.setTimeout(() => 
+      this.dbTimeout = window.setTimeout((): void =>
       {
         this.dbTimeout = null;
         this.database.modifyLogo(this.logoModel());
@@ -133,7 +133,7 @@ export class LogoConfigComponent implements OnInit
    * @param file - The file that was uploaded.
    * @returns void
    */
-  public uploadFile(file: File)
+  public uploadFile(file: File): void
   {
     if(file.size > LogoConfigComponent.MAX_FILE_SIZE)
     {
@@ -144,14 +144,14 @@ export class LogoConfigComponent implements OnInit
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    reader.onload = (event) => 
+    reader.onload = (event): void => 
     {
       const content = event.target!.result as string;
       this.configImage.controls.fileSource.setValue(content);
 
       // Uses img tag to get the img.width and img.height.
       const img = new Image();
-      img.onload = () => 
+      img.onload = (): void =>
       {
         const [width,height] = LogoImageComponent.determineSpawnSize(img.width,img.height);
         img.remove();
@@ -171,7 +171,7 @@ export class LogoConfigComponent implements OnInit
    * 
    * @param type - The current type that the config form is displaying.
    */
-  public applyConfigType(type: LogoType)
+  public applyConfigType(type: LogoType): void
   {
     this.configForm.setControl("typeConfig",type === "image" ? this.configImage : this.configText);
   }
@@ -179,7 +179,7 @@ export class LogoConfigComponent implements OnInit
   /**
    * Create a new logo.
    */
-  public createNewLogo()
+  public createNewLogo(): void
   {
     this.database.createNewLogo();
   }
@@ -187,7 +187,7 @@ export class LogoConfigComponent implements OnInit
   /**
    * Delete this logo.
    */
-  public deleteLogo()
+  public deleteLogo(): void
   {
     this.database.deleteLogo(this.logoModel().id!);
   }
@@ -195,7 +195,7 @@ export class LogoConfigComponent implements OnInit
   /**
    * Clone this logo.
    */
-  public cloneLogo()
+  public cloneLogo(): void
   {
     this.database.cloneLogo(this.logoModel().id!);
   }
@@ -203,7 +203,7 @@ export class LogoConfigComponent implements OnInit
   /**
    * Set the current aspect ratio based on the current width / height of the logo.
    */
-  public setAspectRatio()
+  public setAspectRatio(): void
   {
     this.aspectRatio = this.configImage.controls.height.value! / this.configImage.controls.width.value!;
   }
@@ -211,7 +211,7 @@ export class LogoConfigComponent implements OnInit
   /**
    * Toggle the aspect ratio. If toggled on, then the aspect ratio will be calculated.
    */
-  public toggleAspectRatio()
+  public toggleAspectRatio(): void
   {
     this.lockRatio = !this.lockRatio;
 
