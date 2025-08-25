@@ -7,8 +7,11 @@ import { DatabaseService } from "./database.service";
 })
 export class LogosCacheService 
 {
-  private db = inject(DatabaseService);
+  //Properties
   public logos!: Logo[];
+
+  //Dependencies
+  private db = inject(DatabaseService);
   
   constructor() 
   { 
@@ -26,11 +29,13 @@ export class LogosCacheService
       }
     });
 
+    //Logo was added
     this.db.logosAdded$.subscribe((logo) => 
     {
       this.logos.push(logo);
     });
 
+    //Logo was deleted
     this.db.logosDeleted$.subscribe((id) => 
     {
       this.logos.splice(this.logos.findIndex(logo => logo.id === id),1);

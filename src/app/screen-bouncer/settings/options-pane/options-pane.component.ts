@@ -1,4 +1,4 @@
-import { Component, inject, model, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { LogoConfigComponent } from "../logo-config/logo-config.component";
 import { LogosCacheService } from "../../../../services/logos-cache.service";
 import { DatabaseService } from "../../../../services/database.service";
@@ -15,15 +15,19 @@ import { BackgroundService } from "../../../../services/background.service";
 })
 export class OptionsPaneComponent implements OnInit
 {
-  background = inject(BackgroundService);
-  formBuilder = inject(FormBuilder);
-  generalForm = this.formBuilder.group({
+  //Dependencies
+  protected background = inject(BackgroundService);
+  protected formBuilder = inject(FormBuilder);
+  protected cache = inject(LogosCacheService);
+  protected db = inject(DatabaseService);
+
+  protected generalForm = this.formBuilder.group({
     backgroundColor: [this.background.backgroundColor(),CustomValidators.isHex]
   },{updateOn: "change"});
 
-  cache = inject(LogosCacheService);
-  db = inject(DatabaseService);
-
+  /**
+   * On init, listen to the background color changes and properly update it.
+   */
   ngOnInit(): void 
   {
     this.generalForm.controls.backgroundColor.statusChanges.subscribe((status) => 
@@ -34,6 +38,9 @@ export class OptionsPaneComponent implements OnInit
     });
   }
 
+  /**
+   * Revert the program to its default.
+   */
   handleReset()
   {
     if(window.confirm("This will remove all logos. Are you sure?"))

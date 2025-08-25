@@ -5,6 +5,7 @@ import { computed, Injectable, signal } from "@angular/core";
 })
 export class BackgroundService
 {
+  //Properties
   public backgroundColor = signal(localStorage.getItem("backgroundColor") ?? "#000000");
   public iconColor = computed(() => this.determineIconColor(this.backgroundColor())); //
 

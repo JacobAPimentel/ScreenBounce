@@ -11,10 +11,11 @@ import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.compone
 })
 export class DvdLogoComponent implements OnInit 
 {
-  //CONSTANTS
+  //Constants
   public static readonly defaultSpeed: number = 500;
   public static readonly defaultBounceVar: number = 1;
 
+  //Properties
   public speed = input(DvdLogoComponent.defaultSpeed);
   public bounceVariance = input(DvdLogoComponent.defaultBounceVar);
   private cornerFrameTolerance = 5;
@@ -29,32 +30,54 @@ export class DvdLogoComponent implements OnInit
 
   @HostBinding("style.left.px") private left = 0;
   @HostBinding("style.top.px") private top = 0;
-  @HostBinding("style.color") private color = "white";
   @HostBinding("style.fill")
   public host: ElementRef = inject(ElementRef);
 
+  /**
+   * On init, center the logo and push it to a random direction.
+   */
   ngOnInit(): void 
   {
     this.resetPosition();
     this.randomDirection();
   }
 
+  /**
+   * Set the logo to move in a random direction.
+   */
   randomDirection()
   {
     this.direction = Vector2D.randomUnit();
   }
 
+  /**
+   * Center the logo.
+   */
   resetPosition()
   {
     this.setXPos(window.innerWidth / 2);
     this.setYPos(window.innerHeight / 2);
   }
 
+  /**
+   * Return a number between min and max.
+   * 
+   * @param val - The value that should be clamped
+   * @param min - The min bound
+   * @param max - The max bound
+   * @returns 
+   * A number between min and max.
+   */
   private clamp(val: number,min: number,max: number)
   {
     return Math.min(max, Math.max(min,val));
   }
 
+  /**
+   * Render the next logo frame.
+   * 
+   * @param dt - Delta time
+   */
   public moveFrame(dt: DOMHighResTimeStamp)
   {
     const dtSpeed: number = this.speed() * dt;
@@ -123,16 +146,23 @@ export class DvdLogoComponent implements OnInit
     return true;
   }
 
-
+  /**
+   * Set the X position of the logo in respect to the logo width.
+   * 
+   * @param x - The X value to be set to.
+   */
   private setXPos(x: number)
   {
-    const width: number = this.host.nativeElement.offsetWidth;
-    this.left = (x - width/2);
+    this.left = (x - this.host.nativeElement.offsetWidth/2);
   }
 
+  /**
+   * Set the Y position of the logo in respect to the logo height.
+   * 
+   * @param y - The Y value to be set to.
+   */
   private setYPos(y: number)
   {
-    const height: number = this.host.nativeElement.offsetHeight;
-    this.top = (y - height/2);
+    this.top = (y - this.host.nativeElement.offsetHeight/2);
   }
 }

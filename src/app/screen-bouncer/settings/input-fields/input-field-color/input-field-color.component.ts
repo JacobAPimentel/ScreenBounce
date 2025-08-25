@@ -14,6 +14,11 @@ export class InputFieldColorComponent extends InputFieldNumberComponent
   @ViewChild("inputColor") inputColor!: ElementRef;
   @ViewChild("inputText") inputText!: ElementRef;
 
+  /**
+   * If the color / number input changed, make sure the other value changes with it.
+   * 
+   * @param element - The element that was changed.
+   */
   onChange(element: HTMLInputElement)
   {
     const other: HTMLInputElement = (element === this.inputColor.nativeElement ? this.inputText : this.inputColor).nativeElement;

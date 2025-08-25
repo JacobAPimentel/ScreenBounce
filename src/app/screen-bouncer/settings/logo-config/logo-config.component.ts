@@ -20,33 +20,38 @@ import { LogoImageComponent } from "../../logo-image/logo-image.component";
 })
 export class LogoConfigComponent implements OnInit 
 {
-  readonly logoTypes = logoTypes;
-  logoModel = input.required<Logo>();
+  //Constants
+  public static readonly MAX_FILE_SIZE = 5 * 1e6;
+  //Properties
+  public readonly logoTypes = logoTypes;
+  public logoModel = input.required<Logo>();
 
-  aspectRatio = 1; // Width:Height
-  lockRatio = false;
+  protected lockRatio = false;
+  private aspectRatio = 1; // Width:Height
   @ViewChild("nameField") nameField!: ElementRef;
 
-  dbCooldown = 100; //milliseconds
-  dbTimeout: number | null = null;
+  private dbCooldown = 100; //milliseconds
+  private dbTimeout: number | null = null;
 
-  database = inject(DatabaseService);
-  logoCache = inject(LogosCacheService);
-  formBuilder = inject(FormBuilder);
+  //Dependencies
+  protected database = inject(DatabaseService);
+  protected logoCache = inject(LogosCacheService);
+  protected formBuilder = inject(FormBuilder);
 
-  configImage = this.formBuilder.group({
+  //Control forms
+  protected configImage = this.formBuilder.group({
     fileSource: "assets/DefaultLogo.svg",
     width: [500,CustomValidators.isNumber],
     height: [300,CustomValidators.isNumber],
     colorOpacity: [1,CustomValidators.isNumber]
   });
 
-  configText = this.formBuilder.group({
+  protected configText = this.formBuilder.group({
     displayText: "DVD",
     fontSize: [50,CustomValidators.isNumber],
   });
 
-  configForm = this.formBuilder.group({
+  protected configForm = this.formBuilder.group({
     name: "Default Logo",
     type: "image",
     typeConfig: this.configImage as (typeof this.configImage | typeof this.configText),
@@ -55,25 +60,29 @@ export class LogoConfigComponent implements OnInit
     bounceVariance: [DvdLogoComponent.defaultBounceVar,CustomValidators.isNumber],
   },{updateOn: "change"});
 
+  /**
+   * Init the config box and listens to the necessary listeners.
+   */
   ngOnInit(): void 
   {
-    this.applyConfig(this.logoModel().type);
+    this.applyConfigType(this.logoModel().type);
     this.configForm.patchValue(this.logoModel());
     this.toggleAspectRatio();
 
     //Changes will automatically be saved so the DVD logo can be reflected to the user near instantly.
     this.configForm.controls.type.valueChanges.subscribe((value) => 
     {
-      this.applyConfig(value as LogoType);
+      this.applyConfigType(value as LogoType);
     });
 
+    //Aspect ratio listener
     const sizes = [this.configImage.controls.width,this.configImage.controls.height];
     for(let i = 0; i<sizes.length; i++)
     {
       const control = sizes[i];
       
       control.statusChanges.pipe(
-        filter((status) => this.lockRatio && status === "VALID"),
+        filter((status) => this.lockRatio && status === "VALID"), //Only listens to call when aspect ratio is enabled + change is valid.
         map(() => control.value)
       )
       .subscribe((curValue) => 
@@ -87,9 +96,15 @@ export class LogoConfigComponent implements OnInit
       });
     }
 
+    //If the main form changes, update the cache model and database.
     this.configForm.statusChanges.subscribe(this.updateModelAndDatabase.bind(this));
   }
 
+  /**
+   * Update the cache model and database, only if the current status is valid.
+   * 
+   * @returns void
+   */
   public updateModelAndDatabase()
   {
       if(this.configForm.status === "INVALID") return;
@@ -112,9 +127,15 @@ export class LogoConfigComponent implements OnInit
       },this.dbCooldown);
   }
 
+  /**
+   * Process and upload file to the database.
+   * 
+   * @param file - The file that was uploaded.
+   * @returns void
+   */
   public uploadFile(file: File)
   {
-    if(file.size > (5 * 1e6))
+    if(file.size > LogoConfigComponent.MAX_FILE_SIZE)
     {
       window.alert("File size exceeded 5 megabytes");
       return;
@@ -128,6 +149,7 @@ export class LogoConfigComponent implements OnInit
       const content = event.target!.result as string;
       this.configImage.controls.fileSource.setValue(content);
 
+      // Uses img tag to get the img.width and img.height.
       const img = new Image();
       img.onload = () => 
       {
@@ -136,39 +158,59 @@ export class LogoConfigComponent implements OnInit
 
         this.configImage.controls.width.setValue(width,{emitEvent: false});
         this.configImage.controls.height.setValue(height,{emitEvent: false});
-
         this.setAspectRatio();
+
         this.updateModelAndDatabase();
       };
       img.src = content;
     };
   }
 
-  public applyConfig(type: LogoType)
+  /**
+   * Apply the config type to the general config form.
+   * 
+   * @param type - The current type that the config form is displaying.
+   */
+  public applyConfigType(type: LogoType)
   {
     this.configForm.setControl("typeConfig",type === "image" ? this.configImage : this.configText);
   }
 
+  /**
+   * Create a new logo.
+   */
   public createNewLogo()
   {
     this.database.createNewLogo();
   }
 
+  /**
+   * Delete this logo.
+   */
   public deleteLogo()
   {
     this.database.deleteLogo(this.logoModel().id!);
   }
 
+  /**
+   * Clone this logo.
+   */
   public cloneLogo()
   {
     this.database.cloneLogo(this.logoModel().id!);
   }
 
+  /**
+   * Set the current aspect ratio based on the current width / height of the logo.
+   */
   public setAspectRatio()
   {
     this.aspectRatio = this.configImage.controls.height.value! / this.configImage.controls.width.value!;
   }
 
+  /**
+   * Toggle the aspect ratio. If toggled on, then the aspect ratio will be calculated.
+   */
   public toggleAspectRatio()
   {
     this.lockRatio = !this.lockRatio;
@@ -179,7 +221,15 @@ export class LogoConfigComponent implements OnInit
     }
   }
 
-  //Alternatve form than directly doing "config.controls[x]"
+  /**
+   * Alternatve form than directly doing "config.controls[x]"
+   * 
+   * Example: getControl("displayText","typeConfig")
+   * 
+   * @param formName - The form you want to retrieve
+   * @param groupName - Optional, the specified group name.
+   * @returns The control form.
+   */
   public getControl(formName: string, groupName?: string): FormControl
   {
     const controlName = (groupName ? `${groupName}.` : "") + formName;
