@@ -1,4 +1,4 @@
-<button (click)="fileInput.click()">
+<button type="button" (click)="fileInput.click()">
     <div class="clickArea" 
         (dragover)="onDragOver($event)" (drop)="onDrop($event)" 
         (mouseenter)="focusClickArea($event,true)" (mouseleave)="focusClickArea($event,false)" (keypress)="$event.preventDefault()" (paste)="onPaste($event)" contenteditable="true">

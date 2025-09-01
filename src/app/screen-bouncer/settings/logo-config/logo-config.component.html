@@ -40,7 +40,7 @@
                     <app-input-field-number class="item-grow" label="Width" [control]="configImage.controls.width" [step]="5" [min]="1" [max]="6000"/>
                     <app-input-field-number class="item-grow" label="Height" [control]="configImage.controls.height" [step]="5" [min]="1" [max]="6000" />
                     <app-input-field-label>
-                        <button class="img-button item-center" [class.toggledOff]="!lockRatio" (click)="toggleAspectRatio()">
+                        <button type="button" class="img-button item-center" [class.toggledOff]="!lockRatio" (click)="toggleAspectRatio()">
                             <img src="assets/AspectRatio.svg" alt="Toggle Aspect Ratio"/>
                         </button>
                     </app-input-field-label>
@@ -56,14 +56,14 @@
     <div class="actionBar">
         @if(logoCache.logos.length > 1)
         {
-            <button class="img-button item-center" (click)="deleteLogo()">
+            <button type="button" class="img-button item-center" (click)="deleteLogo()">
                 <img src="assets/Remove.svg" alt="Remove"/>
             </button>
         }
-        <button class="img-button item-center" (click)="createNewLogo()">
+        <button type="button" class="img-button item-center" (click)="createNewLogo()">
             <img src="assets/Add.svg" alt="Add"/>
         </button>
-        <button class="img-button item-center" (click)="cloneLogo()">
+        <button type="button" class="img-button item-center" (click)="cloneLogo()">
             <img src="assets/Copy.svg" alt="Copy"/>
         </button>
     </div>

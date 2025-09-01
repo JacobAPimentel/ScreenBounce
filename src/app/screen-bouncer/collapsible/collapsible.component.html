@@ -1,4 +1,4 @@
-<button #toggle class="anchor img-button" aria-label="settings" (click)="onClicked()">
+<button type="button" #toggle class="anchor img-button" aria-label="settings" (click)="onClicked()">
     @if(!isExpanded)
     {
         <svg alt="Settings" class="settings" [class.invisible]="!isVisible" [attr.fill]="background.iconColor()" height="24px" width="24px" 
