@@ -1,59 +1,19 @@
-# JacquesjunkpileClient
+# Screen Bounce
+[![Screen Bounce](https://i.imgur.com/0dp4PK3.gif)](https://screenbounce.com)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+[ScreenBounce.com](https://screenbounce.com/) is a DVD screensaver website. It is completely useless, but maybe if you are lucky you can see the logo touch the corner of the website!
 
-## Development server
+## Features
+The website includes a settings panel that lets users customize the appearance of the website. The settings button is hidden until you move the mouse, letting you enjoy the black void and bouncing logos without distractions.
 
-To start a local development server, run:
+The settings panel contains cards representing each logo. Each card allows you to:
+- Upload custom images to bounce around.
+- Adjust the number of logos bouncing on screen.
+- Use custom text for logos, including ASCII art.
+- Change speed and size of the logos.
 
-```bash
-ng serve
-```
+The website will also:
+- Save all settings locally in your browser using IndexedDB, so your preferences are remembered for next time.
+- Automatically detect and adjust to window size changes, keeping the bouncing logos responsive at all times.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
