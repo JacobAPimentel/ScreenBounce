@@ -25,4 +25,15 @@ export class InputFieldSliderComponent extends InputFieldNumberComponent
     const other: HTMLInputElement = (element === this.inputRange.nativeElement ? this.inputNumber : this.inputRange).nativeElement;
     other.value = element.value;
   }
+
+  /**
+   * Focus when the user touches the slider on mobile. This is necessary because if we do not have this, once the touch end it will
+   * auto focus on the previously selected item which can be annoying to mobile users.
+   * 
+   * @param element - The element that was touched. In this case, the input range.
+   */
+  protected onTouch(element: HTMLInputElement): void
+  {
+    element.focus();
+  }
 }

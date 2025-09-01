@@ -9,6 +9,7 @@
             appInputNumberOnly />
         <input type="range" #inputRange (input)="onChange(inputRange)"
             [formControl]="control()" 
+            (touchstart)="onTouch(inputRange)"
             step="0.05" 
             min="0" 
             max="1" />
