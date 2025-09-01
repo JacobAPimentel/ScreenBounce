@@ -1,7 +1,7 @@
 # Screen Bounce
 [![Screen Bounce](https://i.imgur.com/0dp4PK3.gif)](https://screenbounce.com)
 
-[ScreenBounce.com](https://screenbounce.com/) is a DVD screensaver website. It is completely useless, but maybe if you are lucky you can see the logo touch the corner of the website!
+[ScreenBounce.com](https://screenbounce.com/) is a DVD screensaver website. With some luck, you may see the logo bounce off the corner of the website!
 
 ## Features
 The website includes a settings panel that lets users customize the appearance of the website. The settings button is hidden until you move the mouse, letting you enjoy the black void and bouncing logos without distractions.
