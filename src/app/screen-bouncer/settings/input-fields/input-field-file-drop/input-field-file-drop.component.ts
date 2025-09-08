@@ -58,10 +58,14 @@ export class InputFieldFileDropComponent
     this.emitFile(event.dataTransfer?.files);
   }
 
-    /**
+  /**
    * Overwrite onPaste to instead handle the file.
    * 
    * @param event - Paste event
+   * @remarks
+   * Pasting does not trigger on FireFox. It appears to only trigger for text based input events
+   * such as <input type="text"> or if contenteditable="true". In the HTML of this component,
+   * it is currently under a <button>.
    */
   protected onPaste(event: ClipboardEvent): void
   {
