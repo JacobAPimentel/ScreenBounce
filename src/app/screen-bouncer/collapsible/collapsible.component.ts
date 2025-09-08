@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { ChangeDetectionStrategy, Component, ContentChild, HostListener, inject, TemplateRef } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ContentChild, HostListener, inject, model, TemplateRef } from "@angular/core";
 import { BackgroundService } from "../../../services/background.service";
 
 @Component({
@@ -13,7 +13,7 @@ export class CollapsibleComponent
 {
   //Properties
   public isExpanded = false;
-  public isVisible = false;
+  public isVisible = model(false);
   public isTransitioning = false;
   private idleThreshold = 3 * 1000;
   private timeoutId: number | null = null;
@@ -32,11 +32,11 @@ export class CollapsibleComponent
   private onMouseMove(): void
   {
     if(this.timeoutId) window.clearTimeout(this.timeoutId);
-    else this.isVisible = true;
+    else this.isVisible.set(true);
     
     this.timeoutId = window.setTimeout((): void =>
     {
-      this.isVisible = false;
+      this.isVisible.set(false);
       this.timeoutId = null;
     }, this.idleThreshold);
   }

@@ -77,25 +77,3 @@ body {
 .item-grow{
     flex-grow: 1;
 }
-
-/* DEBUGGING */
-.renderFlash{
-    animation: outlineFlash 1.5s ease forwards
-}
-@keyframes outlineFlash{
-  0% {
-    outline: 0 solid blue;
-  }
-  25% {
-    outline: 4px solid blue;
-  }
-  50% {
-    outline: 2px solid blue;
-  }
-  75% {
-    outline: 4px solid blue;
-  }
-  100% {
-    outline: 0 solid blue;
-  }
-}

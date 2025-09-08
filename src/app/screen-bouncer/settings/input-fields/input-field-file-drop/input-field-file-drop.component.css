@@ -6,6 +6,7 @@ img{
 
 button{
     all: unset;
+    box-sizing: border-box;
     cursor: pointer;
     width: 100%;
     min-width: 100px;
@@ -22,14 +23,16 @@ button{
     border-radius: 10px;
 
     caret-color: transparent;
-}
-.clickArea:hover{
-   background-color: rgb(152, 169, 174); 
-}
-.clickArea > span{
-    width: 100%;
 
-    text-wrap-mode: nowrap;
-    font-size: 0.9rem;
-    text-align: center;
+    &:focus{
+        background-color: rgb(152, 169, 174); 
+    }
+
+    & > span{
+        width: 100%;
+
+        text-wrap-mode: nowrap;
+        font-size: 0.9rem;
+        text-align: center;
+    }
 }
