@@ -159,6 +159,7 @@ export class LogoConfigComponent implements OnInit
 
         this.configImage.controls.width.setValue(width,{emitEvent: false});
         this.configImage.controls.height.setValue(height,{emitEvent: false});
+        this.configImage.controls.colorOpacity.setValue(0.5);
         this.setAspectRatio();
 
         this.updateModelAndDatabase();

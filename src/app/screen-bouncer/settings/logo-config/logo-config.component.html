@@ -1,10 +1,8 @@
 <form class="flex-col" [formGroup]="configForm">
-    <div class="nameArea">
-        <input #nameField id="nameField" class="nameField" type="text" formControlName="name" />
-        <label for="nameField" class="flex-row" [style.cursor]="'pointer'">
-            <img src="assets/Pencil.svg" alt="Edit" [style.display]="'block'"/>
-        </label>
-    </div>
+    <label class="nameArea">
+        <input class="nameField" type="text" formControlName="name" [style.cursor]="'text'"/>
+        <img src="assets/Pencil.svg" alt="Edit" [style.display]="'block'" [style.cursor]="'pointer'"/>
+    </label>
     <div class="configArea">
         <div class="inputRow justify-space-between">
             <app-input-field-label #typeField label="Type">
