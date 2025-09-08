@@ -1,9 +1,10 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { Component, ContentChild, HostListener, inject, TemplateRef } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ContentChild, HostListener, inject, TemplateRef } from "@angular/core";
 import { BackgroundService } from "../../../services/background.service";
 
 @Component({
   selector: "app-collapsible",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: "./collapsible.component.html",
   styleUrl: "./collapsible.component.css",
   imports: [NgTemplateOutlet]

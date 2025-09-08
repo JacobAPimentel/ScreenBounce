@@ -1,6 +1,6 @@
 <div class="flex">
     <div #viewport class="viewport" [style.background-color]="background.backgroundColor()">
-        @for(logo of cache.logos; track logo.id)
+        @for(logo of cache.logos(); track logo.id)
         {
             @for(i of [].constructor(logo.quantity); track $index)
             {

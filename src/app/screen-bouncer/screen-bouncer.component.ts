@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, ViewChildren, AfterViewInit, QueryList, inject } from "@angular/core";
+import { Component, ViewChildren, AfterViewInit, QueryList, inject, ChangeDetectionStrategy } from "@angular/core";
 import { DvdLogoComponent } from "./dvd-logo/dvd-logo.component";
 import { LogoTextComponent } from "./logo-text/logo-text.component";
 import { LogoImageComponent } from "./logo-image/logo-image.component";
@@ -10,6 +10,7 @@ import { BackgroundService } from "../../services/background.service";
 
 @Component({
   selector: "app-screenbouncer",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, DvdLogoComponent, LogoTextComponent, LogoImageComponent, CollapsibleComponent, OptionsPaneComponent],
   templateUrl: "./screen-bouncer.component.html",
   styleUrl: "./screen-bouncer.component.css",

@@ -1,5 +1,5 @@
 import { CommonModule} from "@angular/common";
-import { Component, ElementRef, inject, HostBinding, OnInit, ContentChild, input } from "@angular/core";
+import { Component, ElementRef, inject, OnInit, ContentChild, input, ChangeDetectionStrategy, model } from "@angular/core";
 import { Vector2D } from "../../../models/vector-2d";
 import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.component";
 
@@ -7,7 +7,12 @@ import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.compone
   selector: "app-dvd-logo",
   imports: [CommonModule],
   template: "<ng-content/>",
-  styleUrl: "./dvd-logo.component.css"
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: "./dvd-logo.component.css",
+  host: {
+    "[style.left.px]": "left()",
+    "[style.top.px]": "top()",
+  }
 })
 export class DvdLogoComponent implements OnInit 
 {
@@ -16,6 +21,9 @@ export class DvdLogoComponent implements OnInit
   public static readonly defaultBounceVar: number = 1;
 
   //Properties
+  protected left = model(0);
+  protected top = model(0);
+
   public speed = input(DvdLogoComponent.defaultSpeed);
   public bounceVariance = input(DvdLogoComponent.defaultBounceVar);
   private cornerFrameTolerance = 5;
@@ -27,10 +35,6 @@ export class DvdLogoComponent implements OnInit
   private moveID = 0;
 
   @ContentChild(ColorableLogoComponent) private innerLogo!: ColorableLogoComponent;
-
-  @HostBinding("style.left.px") private left = 0;
-  @HostBinding("style.top.px") private top = 0;
-  @HostBinding("style.fill")
   public host: ElementRef = inject(ElementRef);
 
   /**
@@ -82,15 +86,15 @@ export class DvdLogoComponent implements OnInit
   {
     const dtSpeed: number = this.speed() * dt;
 
-    const x = this.left + (this.direction.x  * dtSpeed);
-    const y = this.top + (this.direction.y * dtSpeed);
+    const x = this.left() + (this.direction.x  * dtSpeed);
+    const y = this.top() + (this.direction.y * dtSpeed);
 
     this.elapsedXHit++;
     this.elapsedYHit++;
     this.evaluateHits(x,y);
 
-    this.left = this.clamp(this.left + (this.direction.x * dtSpeed),0,this.host.nativeElement.parentElement.offsetWidth - this.host.nativeElement.offsetWidth);
-    this.top = this.clamp(this.top + (this.direction.y * dtSpeed),0,this.host.nativeElement.parentElement.offsetHeight - this.host.nativeElement.offsetHeight);
+    this.left.set(this.clamp(this.left() + (this.direction.x * dtSpeed),0,this.host.nativeElement.parentElement.offsetWidth - this.host.nativeElement.offsetWidth));
+    this.top.set(this.clamp(this.top() + (this.direction.y * dtSpeed),0,this.host.nativeElement.parentElement.offsetHeight - this.host.nativeElement.offsetHeight));
   }
 
   /**
@@ -153,7 +157,7 @@ export class DvdLogoComponent implements OnInit
    */
   public setXPos(x: number): void
   {
-    this.left = (x - this.host.nativeElement.offsetWidth/2);
+    this.left.set(x - this.host.nativeElement.offsetWidth/2);
   }
 
   /**
@@ -163,6 +167,6 @@ export class DvdLogoComponent implements OnInit
    */
   public setYPos(y: number): void
   {
-    this.top = (y - this.host.nativeElement.offsetHeight/2);
+    this.top.set(y - this.host.nativeElement.offsetHeight/2);
   }
 }

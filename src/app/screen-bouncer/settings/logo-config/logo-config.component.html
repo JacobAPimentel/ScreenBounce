@@ -54,7 +54,7 @@
 
     </div>
     <div class="actionBar">
-        @if(logoCache.logos.length > 1)
+        @if(logoCache.logos().length > 1)
         {
             <button type="button" class="img-button item-center" (click)="deleteLogo()">
                 <img src="assets/Remove.svg" alt="Remove"/>

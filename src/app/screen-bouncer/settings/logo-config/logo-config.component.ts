@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, OnInit, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, inject, input, OnInit, ViewChild } from "@angular/core";
 import {ReactiveFormsModule, FormBuilder, FormControl} from "@angular/forms";
 import { DvdLogoComponent } from "../../dvd-logo/dvd-logo.component";
 import { CustomValidators } from "../../../../models/custom-validators";
@@ -14,6 +14,7 @@ import { LogoImageComponent } from "../../logo-image/logo-image.component";
 
 @Component({
   selector: "app-logo-config",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, InputFieldLabelComponent, InputFieldNumberComponent, InputFieldSliderComponent, InputFieldFileDropComponent],
   templateUrl: "./logo-config.component.html",
   styleUrl: "./logo-config.component.css"

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { LogoConfigComponent } from "../logo-config/logo-config.component";
 import { LogosCacheService } from "../../../../services/logos-cache.service";
 import { DatabaseService } from "../../../../services/database.service";
@@ -9,6 +9,7 @@ import { BackgroundService } from "../../../../services/background.service";
 
 @Component({
   selector: "app-options-pane",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, LogoConfigComponent, InputFieldColorComponent],
   templateUrl: "./options-pane.component.html",
   styleUrl: "./options-pane.component.css"

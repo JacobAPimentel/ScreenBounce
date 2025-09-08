@@ -1,7 +1,8 @@
-import { Component, input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 
 @Component({
   selector: "app-input-field-label",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: "./input-field-label.component.html",
   styleUrl: "./input-field-label.component.css"

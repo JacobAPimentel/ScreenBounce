@@ -2,6 +2,6 @@
     <img [src]="filePath()" [style.width.px]="width()" [style.height.px]="height()" alt="">
     <div class="overlay" 
         [style.maskImage]="`url(${filePath()})`"
-        [style.background-color]="color"
+        [style.background-color]="color()"
         [style.opacity]="colorOpacity()">
 </div>

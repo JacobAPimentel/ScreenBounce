@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { InputNumberOnlyDirective } from "../../../../directives/input-number-only.directive";
 import { InputFieldNumberComponent } from "../input-field-number/input-field-number.component";
@@ -6,6 +6,7 @@ import { InputFieldLabelComponent } from "../input-field-label/input-field-label
 
 @Component({
   selector: "app-input-field-slider",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, InputNumberOnlyDirective, InputFieldLabelComponent],
   templateUrl: "./input-field-slider.component.html",
   styleUrl: "./input-field-slider.component.css"

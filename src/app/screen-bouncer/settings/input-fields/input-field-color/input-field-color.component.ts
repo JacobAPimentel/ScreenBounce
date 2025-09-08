@@ -1,10 +1,11 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { InputFieldNumberComponent } from "../input-field-number/input-field-number.component";
 import { InputFieldLabelComponent } from "../input-field-label/input-field-label.component";
 
 @Component({
   selector: "app-input-field-color",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, InputFieldLabelComponent],
   templateUrl: "./input-field-color.component.html",
   styleUrl: "./input-field-color.component.css"

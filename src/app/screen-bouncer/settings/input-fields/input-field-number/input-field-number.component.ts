@@ -1,10 +1,11 @@
-import { Component, input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, input } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { InputFieldLabelComponent } from "../input-field-label/input-field-label.component";
 import { InputNumberOnlyDirective } from "../../../../directives/input-number-only.directive";
 
 @Component({
   selector: "app-input-field-number",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule,InputFieldLabelComponent,InputNumberOnlyDirective],
   templateUrl: "./input-field-number.component.html",
   styleUrl: "./input-field-number.component.css"

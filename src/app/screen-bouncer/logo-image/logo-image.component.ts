@@ -1,8 +1,9 @@
-import { Component, forwardRef, input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, forwardRef, input } from "@angular/core";
 import { ColorableLogoComponent } from "../colorable-logo/colorable-logo.component";
 
 @Component({
   selector: "app-logo-image",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: "./logo-image.component.html",
   styleUrl: "./logo-image.component.css",

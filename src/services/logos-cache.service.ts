@@ -1,4 +1,4 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { Logo } from "../models/logo";
 import { DatabaseService } from "./database.service";
 
@@ -8,7 +8,7 @@ import { DatabaseService } from "./database.service";
 export class LogosCacheService 
 {
   //Properties
-  public logos!: Logo[];
+  public logos = signal<Logo[]>([]);
 
   //Dependencies
   private db = inject(DatabaseService);
@@ -18,13 +18,13 @@ export class LogosCacheService
     this.db.logos$.subscribe({
       next: logos => 
       {
-        this.logos = logos;
+        this.logos.set(logos);
       },
       error: err => 
       {
         const defaultLogo = this.db.defaultObject();
         defaultLogo.id = 1;
-        this.logos = [defaultLogo];
+        this.logos.set([defaultLogo]);
         console.error(err);
       }
     });
@@ -32,13 +32,13 @@ export class LogosCacheService
     //Logo was added
     this.db.logosAdded$.subscribe((logo) => 
     {
-      this.logos.push(logo);
+      this.logos.update(logos => [...logos, logo]);
     });
 
     //Logo was deleted
     this.db.logosDeleted$.subscribe((id) => 
     {
-      this.logos.splice(this.logos.findIndex(logo => logo.id === id),1);
+      this.logos.update(logos => logos.filter(logo => logo.id !== id));
     });
   }
 }

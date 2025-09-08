@@ -30,6 +30,7 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
+      "@angular-eslint/prefer-on-push-component-change-detection": "warn",
       "quotes": ["warn", "double"],
       "brace-style": ["warn", "allman",{"allowSingleLine": true}],
       "semi": ["warn", "always"],

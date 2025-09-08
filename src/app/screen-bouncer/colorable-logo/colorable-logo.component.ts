@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, model } from "@angular/core";
 
 const colors = [
   "lightblue",
@@ -22,20 +22,21 @@ const colors = [
 
 @Component({
   selector: "app-colorable-logo",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: "./colorable-logo.component.html",
   styleUrl: "./colorable-logo.component.css"
 })
 export abstract class ColorableLogoComponent 
 {
-  protected color = "seashell";
+  protected color = model("seashell");
 
   /**
    * Change the logo color to a new random color. Cannot be the same color as previous.
    */
   public setRandomColor(): void
   {
-    const filteredColors: string[] = colors.filter((color) => {return color !== this.color;});
-    this.color = filteredColors[Math.floor(Math.random() * filteredColors.length)];
+    const filteredColors: string[] = colors.filter((color) => {return color !== this.color();});
+    this.color.set(filteredColors[Math.floor(Math.random() * filteredColors.length)]);
   }
 }
