@@ -28,8 +28,8 @@ export class CollapsibleComponent
    * 
    * Repeated mouse movement will reset the timeout.
    */
-  @HostListener("document:mousemove",["$event"])
-  private onMouseMove(): void
+  @HostListener("document:mousemove")
+  public onMouseMove(): void
   {
     if(this.timeoutId) window.clearTimeout(this.timeoutId);
     else this.isVisible.set(true);

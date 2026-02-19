@@ -7,14 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "prefix": "app",
           "skipTests": true
-        },
-        "@schematics/angular:directive": {
-          "prefix": "app"
-        },
-        "@schematics/angular:module": {
-          "lintFix": true
         }
       },
       "root": "",
