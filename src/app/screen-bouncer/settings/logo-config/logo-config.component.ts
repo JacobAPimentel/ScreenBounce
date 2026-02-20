@@ -111,7 +111,7 @@ export class LogoConfigComponent implements OnInit
       if(this.configForm.status === "INVALID") return;
 
       const formObject = this.configForm.getRawValue();
-      Object.assign(this.logoModel(),formObject);
+      this.logoCache.updateLogo({...this.logoModel(),...formObject} as Logo);
 
       //With the near real-time database update, if the user spam certain actions (such as the slider), it will constantly write to the database.
       //Therefore, implement a small cooldown that starts when the user stops modifying the status.

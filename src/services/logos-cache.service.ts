@@ -41,4 +41,21 @@ export class LogosCacheService
       this.logos.update(logos => logos.filter(logo => logo.id !== id));
     });
   }
+
+  /**
+   * Replace a logo with a new one.
+   * 
+   * @param updated - The updated Logo. Should have the id.
+   * 
+   * @remarks
+   * Uses map to properly signal that a change occurred.
+   */
+  public updateLogo(updated: Logo): void 
+  {
+    this.logos.update(logos =>
+      logos.map(logo =>
+        logo.id === updated.id ? updated : logo
+      )
+    );
+  }
 }
