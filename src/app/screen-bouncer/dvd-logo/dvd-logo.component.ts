@@ -93,8 +93,10 @@ export class DvdLogoComponent implements OnInit
     this.elapsedYHit++;
     this.evaluateHits(x,y);
 
-    this.left.set(this.clamp(this.left() + (this.direction.x * dtSpeed),0,this.host.nativeElement.parentElement.offsetWidth - this.host.nativeElement.offsetWidth));
-    this.top.set(this.clamp(this.top() + (this.direction.y * dtSpeed),0,this.host.nativeElement.parentElement.offsetHeight - this.host.nativeElement.offsetHeight));
+    const screenElement = this.host.nativeElement.parentElement;
+    const hostElement = this.host.nativeElement;
+    this.left.set(this.clamp(this.left() + (this.direction.x * dtSpeed),0,screenElement.offsetWidth - hostElement.offsetWidth));
+    this.top.set(this.clamp(this.top() + (this.direction.y * dtSpeed),0,screenElement.offsetHeight - hostElement.offsetHeight));
   }
 
   /**
@@ -120,8 +122,11 @@ export class DvdLogoComponent implements OnInit
    */
   private evaluateHits(x: number,y: number): boolean
   {  
-    const xWasHit: boolean = x <= 0 || x + this.host.nativeElement.offsetWidth >= this.host.nativeElement.parentElement.offsetWidth;
-    const yWasHit: boolean = y <= 0 || y + this.host.nativeElement.offsetHeight >= this.host.nativeElement.parentElement.offsetHeight;
+    const screenElement = this.host.nativeElement.parentElement;
+    const hostElement = this.host.nativeElement;
+    
+    const xWasHit: boolean = x <= 0 || x + hostElement.offsetWidth >= screenElement.offsetWidth;
+    const yWasHit: boolean = y <= 0 || y + hostElement.offsetHeight >= screenElement.offsetHeight;
     if(!xWasHit && !yWasHit) return false;
 
     if(xWasHit)
