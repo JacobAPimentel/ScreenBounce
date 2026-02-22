@@ -16,3 +16,6 @@ The settings panel contains cards representing each logo. Each card allows you t
 The website will also:
 - Save all settings locally in your browser using IndexedDB, so your preferences are remembered for next time.
 - Automatically detect and adjust to window size changes, keeping the bouncing logos responsive at all times.
+
+## Website Screenshot
+<img src="https://i.imgur.com/9Pk4gii.png" alt="Screenshot of website" style="width:1000px">
